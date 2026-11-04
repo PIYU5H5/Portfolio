@@ -1,0 +1,99 @@
+export interface AchievementItem {
+  id: string
+  title: string
+  organization: string
+  date: string
+  category: 'Hackathon' | 'Competitive' | 'Honor' | 'Certification'
+  description: string
+  badgeText: string
+  highlight?: boolean
+}
+
+export const ACHIEVEMENTS: AchievementItem[] = [
+  {
+    id: "amd-hackathon",
+    title: "Global Hackathon Finalist (San Francisco Finals)",
+    organization: "AMD Developer Hackathon (lablab.ai)",
+    date: "2025",
+    category: "Hackathon",
+    description: "Advanced to the global on-site finals in San Francisco with team 'Sheads', engineering cutting-edge AI acceleration architectures on AMD hardware.",
+    badgeText: "Global Finalist",
+    highlight: true,
+  },
+  {
+    id: "supernova-hackathon",
+    title: "SuperNova 2.0 Finalist",
+    organization: "National Inter-College Hackathon",
+    date: "2025",
+    category: "Hackathon",
+    description: "Built and pitched full-stack autonomous solutions under strict 36-hour sprint constraints, finishing in top final rankings.",
+    badgeText: "Top Finalist",
+    highlight: true,
+  },
+  {
+    id: "void-hackathon",
+    title: "Void Hackathon 8.0 Finalist",
+    organization: "Void Hack",
+    date: "2024",
+    category: "Hackathon",
+    description: "Architected rapid prototyping client-server workflows addressing real-world problem statements.",
+    badgeText: "Finalist",
+  },
+  {
+    id: "sih-2025",
+    title: "Smart India Hackathon 2025 Qualifier",
+    organization: "Ministry of Education, Govt. of India",
+    date: "2025",
+    category: "Hackathon",
+    description: "Advanced through rigorous national technical evaluations and prototype submissions for large-scale government challenges.",
+    badgeText: "National Qualifier",
+    highlight: true,
+  },
+  {
+    id: "openai-nxtwave",
+    title: "State-Level Buildathon Qualifier",
+    organization: "OpenAI Academy x NxtWave",
+    date: "2024",
+    category: "Honor",
+    description: "Recognized for building practical generative AI applications leveraging OpenAI completion and embedding endpoints.",
+    badgeText: "State Qualifier",
+  },
+  {
+    id: "ndso",
+    title: "National Data Science Olympiad",
+    organization: "NDSO India",
+    date: "2024",
+    category: "Competitive",
+    description: "Demonstrated statistical inference, exploratory data analysis, and mathematical problem-solving skills.",
+    badgeText: "Participant",
+  },
+  {
+    id: "leetcode-200",
+    title: "200+ Algorithmic Problems Solved",
+    organization: "LeetCode (@Piyush_op)",
+    date: "Ongoing",
+    category: "Competitive",
+    description: "Consistent practice across dynamic programming, graph traversal, trees, arrays, and binary search.",
+    badgeText: "200+ Solved",
+    highlight: true,
+  },
+  {
+    id: "hackerrank-cert",
+    title: "Software Engineer Intern & React Certified",
+    organization: "HackerRank",
+    date: "2024",
+    category: "Certification",
+    description: "Verified problem-solving competency in Software Engineering fundamentals and React.js frontend architecture.",
+    badgeText: "Certified",
+  },
+  {
+    id: "tech-club-president",
+    title: "President & Hackathon Organizer (500+ attendees)",
+    organization: "TECH Club, Sinhgad Technical Institutes Campus",
+    date: "Aug 2025 – Present",
+    category: "Honor",
+    description: "Led a 12-member executive committee organizing the Elvion Hackathon, spearheading technical infrastructure, sponsorship, and platform development.",
+    badgeText: "Leadership",
+    highlight: true,
+  },
+]

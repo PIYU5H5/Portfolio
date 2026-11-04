@@ -1,0 +1,67 @@
+export interface ThemeConfig {
+  id: string
+  name: string
+  description: string
+  type: 'dark' | 'light'
+  previewColor: string
+  accentColor: string
+}
+
+export const THEMES: ThemeConfig[] = [
+  {
+    id: 'piyush-dark',
+    name: 'Piyush Dark (Default)',
+    description: 'Deep midnight void with electric cobalt & emerald accents',
+    type: 'dark',
+    previewColor: '#0b0f14',
+    accentColor: '#2f81f7',
+  },
+  {
+    id: 'cyberpunk',
+    name: 'Cyberpunk Neon',
+    description: 'High-octane neon cyan & hot magenta on deep synthwave purple',
+    type: 'dark',
+    previewColor: '#12072b',
+    accentColor: '#ff007f',
+  },
+  {
+    id: 'light-modern',
+    name: 'Modern Clean Light',
+    description: 'High contrast crisp canvas tuned for daytime readability',
+    type: 'light',
+    previewColor: '#f8fafc',
+    accentColor: '#2563eb',
+  },
+  {
+    id: 'dracula',
+    name: 'Dracula Dark',
+    description: 'Gothic violet slate with soft pastels and pink highlights',
+    type: 'dark',
+    previewColor: '#282a36',
+    accentColor: '#bd93f9',
+  },
+  {
+    id: 'monokai',
+    name: 'Monokai Pro',
+    description: 'Classic warm code palette with sunny yellow & vibrant greens',
+    type: 'dark',
+    previewColor: '#272822',
+    accentColor: '#a6e22e',
+  },
+  {
+    id: 'solarized-dark',
+    name: 'Solarized Dark',
+    description: 'Precision low-contrast cyan & ochre palette for reduced eye strain',
+    type: 'dark',
+    previewColor: '#002b36',
+    accentColor: '#268bd2',
+  },
+  {
+    id: 'matrix',
+    name: 'Matrix Terminal',
+    description: 'True pitch-black console with phosphor green terminal glow',
+    type: 'dark',
+    previewColor: '#040d04',
+    accentColor: '#00ff66',
+  },
+]
