@@ -6,6 +6,10 @@ import {
   BookOpen,
   Coffee,
   Calendar,
+  Activity,
+  Gamepad2,
+  Sparkles,
+  Heart,
 } from 'lucide-react'
 import { PROFILE } from '../../data/profile.js'
 import { EXPERIENCES } from '../../data/experience.js'
@@ -165,51 +169,90 @@ export const AboutFile = () => {
         <div className="flex items-center gap-2 pt-1">
           <span className="text-xs font-mono text-text-muted">Flagship Initiative:</span>
           <a
-            href="https://elvion.theclub.tech/"
+            href="https://elvion26.vercel.app/"
             target="_blank"
             rel="noreferrer"
             className="text-xs font-mono font-semibold text-accent hover:underline"
           >
-            {PROFILE.leadership.event} (elvion.theclub.tech)
+            {PROFILE.leadership.event} (elvion26.vercel.app)
           </a>
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="p-5 rounded-xl border border-border bg-bg-elevated/40 space-y-2.5"
-        >
-          <div className="flex items-center gap-2 text-accent font-mono font-semibold text-xs">
-            <BookOpen size={16} />
-            <span>CONTINUOUS LEARNING</span>
-          </div>
-          <h4 className="font-bold text-text-main text-sm">{PROFILE.continuousLearning.institute}</h4>
-          <p className="text-xs text-text-muted font-mono">{PROFILE.continuousLearning.program}</p>
-          <div className="text-[11px] font-mono text-text-muted">
-            Target Completion: {PROFILE.continuousLearning.expectedCompletion}
-          </div>
-        </motion.div>
+      {/* Continuous Learning */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="p-5 sm:p-6 rounded-xl border border-border bg-bg-elevated/40 space-y-2.5"
+      >
+        <div className="flex items-center gap-2 text-accent font-mono font-semibold text-xs">
+          <BookOpen size={16} />
+          <span>CONTINUOUS LEARNING & COHORTS</span>
+        </div>
+        <h4 className="font-bold text-text-main text-sm">{PROFILE.continuousLearning.institute}</h4>
+        <p className="text-xs text-text-muted font-mono">{PROFILE.continuousLearning.program}</p>
+        <div className="text-[11px] font-mono text-text-muted">
+          Target Completion: {PROFILE.continuousLearning.expectedCompletion}
+        </div>
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="p-5 rounded-xl border border-border bg-bg-elevated/40 space-y-2.5"
-        >
-          <div className="flex items-center gap-2 text-rose-400 font-mono font-semibold text-xs">
-            <Coffee size={16} />
-            <span>BEYOND THE CODE</span>
-          </div>
-          <div className="space-y-1.5 text-xs text-text-muted leading-relaxed">
-            {PROFILE.beyondCode.map((item, idx) => (
-              <p key={idx}>• {item}</p>
+      {/* Beyond the Code & Personal Interests */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+        className="p-5 sm:p-6 rounded-xl border border-border bg-bg-elevated/60 backdrop-blur-sm space-y-5 shadow-sm"
+      >
+        <div className="flex items-center gap-2 text-rose-400 font-mono font-semibold text-sm">
+          <Heart size={17} />
+          <span>BEYOND THE CODE & DISCIPLINE</span>
+        </div>
+
+        <div className="space-y-2 text-xs sm:text-sm text-text-muted leading-relaxed">
+          {PROFILE.beyondCode.map((item, idx) => (
+            <div key={idx} className="flex items-start gap-2.5">
+              <span className="text-accent mt-0.5 shrink-0">▸</span>
+              <span className="text-text-main/90">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="pt-3 border-t border-border/80 space-y-3">
+          <h4 className="text-xs font-mono font-bold text-text-muted uppercase tracking-wider">
+            Personal Interests & Activities
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {PROFILE.interests.map((group) => (
+              <div
+                key={group.category}
+                className="p-3.5 rounded-lg bg-bg border border-border hover:border-accent/40 transition-colors space-y-2"
+              >
+                <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-accent">
+                  {group.category === 'Sports' && <Trophy size={13} />}
+                  {group.category === 'Fitness' && <Activity size={13} />}
+                  {group.category === 'Gaming' && <Gamepad2 size={13} />}
+                  {group.category === 'Narrative' && <Sparkles size={13} />}
+                  <span>{group.category.toUpperCase()}</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-bg-elevated text-text-main border border-border/60"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-[11px] text-text-muted leading-tight pt-1">
+                  {group.description}
+                </p>
+              </div>
             ))}
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

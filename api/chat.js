@@ -74,6 +74,7 @@ Key Projects:
 Leadership: President, TECH Club (Aug 2025 - Present), organized Elvion Hackathon for 500+ attendees.
 Hackathons: AMD Developer Hackathon Global Finalist in San Francisco, SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 Contact: piyushjadhavyt@gmail.com, GitHub https://github.com/PIYU5H5, LinkedIn https://www.linkedin.com/in/piyush-jadhav5/
+Interests & Beyond Code: Volleyball, Hockey, Kabaddi (teamwork & competitive discipline), strength-training & running, story-driven/strategy gaming, and anime.
 
 Rules:
 1. Only answer using the supplied facts above. Never invent facts, companies, or dates.

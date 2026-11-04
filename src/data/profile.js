@@ -54,9 +54,31 @@ export const PROFILE = {
     expectedCompletion: "2027",
   },
   beyondCode: [
-    "Exploring cutting-edge developer tooling, local LLM architectures, and self-hosted workflows.",
-    "Competitive programming puzzles on LeetCode with a focus on graph algorithms and dynamic programming.",
-    "Avid fan of sci-fi cinema, mechanical keyboards, and brewing the perfect dark roast coffee before marathon hackathons.",
+    "Actively participate in volleyball and hockey, developing high-trust teamwork, communication, and competitive discipline.",
+    "Maintain a consistent strength-training and fitness routine, building physical endurance and mental focus for demanding software engineering challenges.",
+    "Competitive programming on LeetCode with a focus on graph algorithms and dynamic programming.",
+  ],
+  interests: [
+    {
+      category: "Sports",
+      items: ["Volleyball", "Hockey", "Kabaddi"],
+      description: "Teamwork & competitive discipline on the court",
+    },
+    {
+      category: "Fitness",
+      items: ["Strength Training", "Running"],
+      description: "Consistent physical endurance & discipline",
+    },
+    {
+      category: "Gaming",
+      items: ["Story-Driven", "Strategy-Based"],
+      description: "Tactical problem solving & rich narrative worlds",
+    },
+    {
+      category: "Narrative",
+      items: ["Anime", "Long-Form Storytelling"],
+      description: "Appreciation for complex character development & world-building",
+    },
   ],
 }
 

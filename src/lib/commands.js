@@ -85,6 +85,7 @@ export function executeCommand(rawCommand, uptimeSeconds) {
           '  cat <file>       Display file contents in terminal\n' +
           '  pwd              Print working directory\n' +
           '  whoami           Print current user identity\n' +
+          '  interests        Display sports, fitness & non-coding passions\n' +
           '  date             Display system date and time\n' +
           '  clear            Clear terminal screen buffer\n' +
           '  sudo hire piyush Unlock top secret career easter egg\n' +
@@ -143,6 +144,18 @@ export function executeCommand(rawCommand, uptimeSeconds) {
           `  LinkedIn: ${PROFILE.socials.linkedin}\n` +
           `  LeetCode: ${PROFILE.socials.leetcode}\n\n` +
           `Tip: type "open contact" to send a direct message through the form.`,
+      }
+
+    case 'interests':
+    case 'hobbies':
+      return {
+        output:
+          'PERSONAL INTERESTS & ACTIVITIES (BEYOND CODE):\n' +
+          '  🏐 Sports:     Volleyball, Hockey, Kabaddi (teamwork & competitive discipline)\n' +
+          '  🏋️ Fitness:    Strength Training & Running (daily focus & consistency)\n' +
+          '  🎮 Gaming:     Story-driven & strategy-based games\n' +
+          '  🎬 Narrative:  Anime & long-form storytelling\n\n' +
+          'Tip: type "open about" to inspect his background, academic grades, and leadership.',
       }
 
     case 'open': {

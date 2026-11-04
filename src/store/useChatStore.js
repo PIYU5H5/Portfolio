@@ -33,6 +33,7 @@ Profile Details:
   7. Truth-Teller (Vite, React, Gemini API) - Media authenticity detector (https://github.com/PIYU5H5/truth-teller).
 - Hackathons: AMD Developer Hackathon Global Finalist (lablab.ai, SF on-site finals, team Sheads), SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 - Leadership: President of Sinhgad TECH Club (Aug 2025 - Present), directed Elvion Hackathon for 500+ participants.
+- Interests & Beyond Code: Volleyball, Hockey, Kabaddi (teamwork & competitive discipline), strength-training & running, story-driven/strategy gaming, and anime.
 - Contact: Email piyushjadhavyt@gmail.com, GitHub github.com/PIYU5H5, LinkedIn linkedin.com/in/piyush-jadhav5.
 `
 
@@ -78,6 +79,17 @@ function generateLocalSmartResponse(query) {
       `- 🇮🇳 **Smart India Hackathon**: Active participant developing maritime routing solutions (NeptuneRoute).\n` +
       `- 🚀 **President, TECH Club**: Co-organised the Elvion Hackathon for 500+ participants.\n\n` +
       `Inspect the complete timeline in [Achievements.md]!`
+    )
+  }
+
+  if (q.includes('hobbi') || q.includes('interest') || q.includes('sport') || q.includes('game') || q.includes('gaming') || q.includes('anime') || q.includes('fitness') || q.includes('beyond')) {
+    return (
+      `Beyond writing code, Piyush maintains active physical discipline and creative interests:\n\n` +
+      `- 🏐 **Sports**: Plays Volleyball, Hockey, and Kabaddi, sharpening teamwork, high-pressure communication, and court discipline.\n` +
+      `- 🏋️ **Fitness**: Follows a consistent strength-training and running routine for daily stamina and mental focus.\n` +
+      `- 🎮 **Gaming**: Enjoys story-driven and tactical strategy games.\n` +
+      `- 🎬 **Narrative**: Appreciates anime and long-form storytelling with intricate world-building.\n\n` +
+      `Check out [About.jsx] to see his full background and personal interests!`
     )
   }
 
