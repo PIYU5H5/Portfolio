@@ -34,7 +34,7 @@ export const ContactFile = () => {
     setTimeout(() => setIsCopied(false), 2000)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (formData.honeypot) {
@@ -52,16 +52,45 @@ export const ContactFile = () => {
 
     setIsSubmitting(true)
 
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        }),
+      })
+
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to dispatch email')
+      }
+
       setIsSubmitted(true)
       showToast({
         type: 'success',
-        title: 'Message Dispatched!',
-        description: 'Thank you! Piyush will get back to you shortly.',
+        title: 'Message Delivered via SMTP! 🚀',
+        description: 'Your message has been sent directly to Piyush\'s inbox.',
       })
       setFormData({ name: '', email: '', message: '', honeypot: '' })
-    }, 900)
+    } catch (err) {
+      console.error('Contact submission error:', err)
+      showToast({
+        type: 'error',
+        title: 'Dispatch Failed',
+        description: err.message || 'Could not send email. Opening mailto client...',
+      })
+      // Direct mailto fallback so no message is ever lost
+      const mailtoUrl = `mailto:${PROFILE.socials.email}?subject=${encodeURIComponent(`Portfolio Inquiry from ${formData.name}`)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`
+      window.open(mailtoUrl, '_blank')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

@@ -89,6 +89,94 @@ function apiChatDevPlugin() {
           }
         })
       })
+
+      server.middlewares.use('/api/contact', async (req, res, next) => {
+        if (req.method !== 'POST') return next()
+
+        let body = ''
+        req.on('data', (chunk) => {
+          body += chunk
+        })
+
+        req.on('end', async () => {
+          try {
+            const { name, email, message, honeypot } = JSON.parse(body || '{}')
+
+            if (honeypot) {
+              res.statusCode = 200
+              res.setHeader('Content-Type', 'application/json')
+              return res.end(JSON.stringify({ success: true }))
+            }
+
+            if (!name?.trim() || !email?.trim() || !message?.trim()) {
+              res.statusCode = 400
+              res.setHeader('Content-Type', 'application/json')
+              return res.end(JSON.stringify({ error: 'Please provide name, email, and message.' }))
+            }
+
+            const nodemailer = (await import('nodemailer')).default
+            const smtpUser = env.SMTP_USER || process.env.SMTP_USER
+            const smtpPass = (env.SMTP_PASS || process.env.SMTP_PASS || '').replace(/\s+/g, '')
+            const smtpHost = env.SMTP_HOST || process.env.SMTP_HOST || 'smtp.gmail.com'
+            const smtpPort = parseInt(env.SMTP_PORT || process.env.SMTP_PORT || '465', 10)
+
+            if (!smtpUser || !smtpPass) {
+              res.statusCode = 500
+              res.setHeader('Content-Type', 'application/json')
+              return res.end(JSON.stringify({ error: 'SMTP configuration missing in .env.local.' }))
+            }
+
+            const transporter = nodemailer.createTransport({
+              host: smtpHost,
+              port: smtpPort,
+              secure: smtpPort === 465,
+              auth: { user: smtpUser, pass: smtpPass },
+            })
+
+            const safeName = String(name).slice(0, 100)
+            const safeEmail = String(email).slice(0, 150)
+            const safeMessage = String(message).slice(0, 5000)
+
+            await transporter.sendMail({
+              from: `"Portfolio Contact Form" <${smtpUser}>`,
+              to: smtpUser,
+              replyTo: `${safeName} <${safeEmail}>`,
+              subject: `🚀 Portfolio Message from ${safeName}`,
+              text: `Name: ${safeName}\nEmail: ${safeEmail}\n\nMessage:\n${safeMessage}`,
+              html: `
+                <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+                  <h2 style="color: #2563eb; margin-top: 0; font-size: 20px;">New Message from Portfolio Website</h2>
+                  <p style="font-size: 14px; color: #475569; margin-bottom: 20px;">You received a new inquiry through your Visual Studio Code developer portfolio.</p>
+                  <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
+                  <div style="margin-bottom: 12px;">
+                    <strong style="color: #0f172a; font-size: 14px;">Sender:</strong>
+                    <span style="color: #334155; font-size: 14px; margin-left: 8px;">${safeName}</span>
+                  </div>
+                  <div style="margin-bottom: 16px;">
+                    <strong style="color: #0f172a; font-size: 14px;">Email:</strong>
+                    <a href="mailto:${safeEmail}" style="color: #2563eb; font-size: 14px; margin-left: 8px; text-decoration: none;">${safeEmail}</a>
+                  </div>
+                  <div style="margin-top: 20px;">
+                    <strong style="color: #0f172a; font-size: 14px;">Message:</strong>
+                    <div style="margin-top: 8px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #1e293b; line-height: 1.6; white-space: pre-wrap;">${safeMessage}</div>
+                  </div>
+                  <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0 16px;" />
+                  <p style="font-size: 12px; color: #94a3b8; margin: 0;">Hit "Reply" in your email client to respond directly to ${safeEmail}.</p>
+                </div>
+              `,
+            })
+
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ success: true, message: 'Message sent successfully' }))
+          } catch (err) {
+            console.error('SMTP local error:', err)
+            res.statusCode = 500
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ error: err.message }))
+          }
+        })
+      })
     },
   }
 }
