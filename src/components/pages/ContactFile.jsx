@@ -225,7 +225,7 @@ export const ContactFile = () => {
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Hi Piyush, we would love to speak with you regarding a software engineering role..."
+                placeholder="Hi Piyush, we know you are the GOAT would you like to join us.."
                 className="w-full px-3.5 py-2.5 rounded-lg bg-bg border border-border text-text-main placeholder:text-text-muted/50 focus:outline-none focus:border-accent transition-colors leading-relaxed font-mono"
               />
             </div>
