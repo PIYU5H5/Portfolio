@@ -16,13 +16,6 @@ export function useAnimatedFavicon() {
     // If user prefers reduced motion, leave the static favicon
     if (reduceMotion) return
 
-    let link = document.querySelector("link[rel*='icon']")
-    if (!link) {
-      link = document.createElement('link')
-      link.rel = 'icon'
-      document.head.appendChild(link)
-    }
-
     const canvas = document.createElement('canvas')
     canvas.width = 64
     canvas.height = 64
@@ -86,7 +79,19 @@ export function useAnimatedFavicon() {
           ctx.stroke()
         }
 
-        link.href = canvas.toDataURL('image/png')
+        const dataUrl = canvas.toDataURL('image/png')
+        const currentLink = document.querySelector("link[rel*='icon']")
+        const newLink = document.createElement('link')
+        newLink.rel = 'icon'
+        newLink.type = 'image/png'
+        newLink.href = dataUrl
+
+        if (currentLink && currentLink.parentNode) {
+          currentLink.parentNode.replaceChild(newLink, currentLink)
+        } else {
+          document.head.appendChild(newLink)
+        }
+
         frame++
       } catch {
         // Fallback gracefully
@@ -115,8 +120,10 @@ export function useAnimatedFavicon() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
       document.removeEventListener('visibilitychange', handleVisibility)
-      // Restore SVG favicon
-      link.href = '/favicon.svg'
+      const currentLink = document.querySelector("link[rel*='icon']")
+      if (currentLink) {
+        currentLink.href = '/favicon.svg'
+      }
     }
   }, [reduceMotion])
 }

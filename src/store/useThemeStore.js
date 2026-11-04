@@ -17,9 +17,6 @@ const getInitialMotion = () => {
   try {
     const saved = localStorage.getItem('pj_reduce_motion')
     if (saved !== null) return JSON.parse(saved)
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return true
-    }
   } catch {
     // ignore
   }
