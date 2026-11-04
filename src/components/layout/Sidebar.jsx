@@ -6,6 +6,7 @@ import {
   FolderOpen,
   Sparkles,
   Download,
+  Bot,
 } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore.js'
 import { FILES } from '../../data/files.js'

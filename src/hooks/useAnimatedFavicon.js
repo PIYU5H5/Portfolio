@@ -32,54 +32,65 @@ export function useAnimatedFavicon() {
     let frame = 0
     const colors = ['#2f81f7', '#3fb950', '#a371f7']
 
+    const drawRect = (x, y, w, h, r) => {
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(x, y, w, h, r)
+      } else {
+        ctx.rect(x, y, w, h)
+      }
+    }
+
     const renderFavicon = () => {
-      ctx.clearRect(0, 0, 64, 64)
+      try {
+        ctx.clearRect(0, 0, 64, 64)
 
-      // 1. Dark background tile with rounded corners
-      ctx.fillStyle = '#0d1117'
-      ctx.beginPath()
-      ctx.roundRect(0, 0, 64, 64, 16)
-      ctx.fill()
+        // 1. Dark background tile with rounded corners
+        ctx.fillStyle = '#0d1117'
+        ctx.beginPath()
+        drawRect(0, 0, 64, 64, 16)
+        ctx.fill()
 
-      // 2. Animated gradient border
-      const colorIndex = Math.floor(frame / 4) % colors.length
-      const nextColorIndex = (colorIndex + 1) % colors.length
-      const grad = ctx.createLinearGradient(0, 0, 64, 64)
-      grad.addColorStop(0, colors[colorIndex])
-      grad.addColorStop(1, colors[nextColorIndex])
+        // 2. Animated gradient border
+        const colorIndex = Math.floor(frame / 4) % colors.length
+        const nextColorIndex = (colorIndex + 1) % colors.length
+        const grad = ctx.createLinearGradient(0, 0, 64, 64)
+        grad.addColorStop(0, colors[colorIndex])
+        grad.addColorStop(1, colors[nextColorIndex])
 
-      ctx.strokeStyle = grad
-      ctx.lineWidth = 4
-      ctx.beginPath()
-      ctx.roundRect(2, 2, 60, 60, 14)
-      ctx.stroke()
+        ctx.strokeStyle = grad
+        ctx.lineWidth = 4
+        ctx.beginPath()
+        drawRect(2, 2, 60, 60, 14)
+        ctx.stroke()
 
-      // 3. Chevron prompt '>' (accent blue)
-      ctx.strokeStyle = '#2f81f7'
-      ctx.lineWidth = 6
-      ctx.lineCap = 'round'
-      ctx.lineJoin = 'round'
-      ctx.beginPath()
-      ctx.moveTo(18, 20)
-      ctx.lineTo(31, 32)
-      ctx.lineTo(18, 44)
-      ctx.stroke()
-
-      // 4. Blinking cursor '_' (accent green)
-      // Alternates every 500ms (even frames = visible, odd frames = invisible)
-      const isCursorVisible = frame % 2 === 0
-      if (isCursorVisible) {
-        ctx.strokeStyle = '#3fb950'
+        // 3. Chevron prompt '>' (accent blue)
+        ctx.strokeStyle = '#2f81f7'
         ctx.lineWidth = 6
         ctx.lineCap = 'round'
+        ctx.lineJoin = 'round'
         ctx.beginPath()
-        ctx.moveTo(35, 44)
-        ctx.lineTo(48, 44)
+        ctx.moveTo(18, 20)
+        ctx.lineTo(31, 32)
+        ctx.lineTo(18, 44)
         ctx.stroke()
-      }
 
-      link.href = canvas.toDataURL('image/png')
-      frame++
+        // 4. Blinking cursor '_' (accent green)
+        const isCursorVisible = frame % 2 === 0
+        if (isCursorVisible) {
+          ctx.strokeStyle = '#3fb950'
+          ctx.lineWidth = 6
+          ctx.lineCap = 'round'
+          ctx.beginPath()
+          ctx.moveTo(35, 44)
+          ctx.lineTo(48, 44)
+          ctx.stroke()
+        }
+
+        link.href = canvas.toDataURL('image/png')
+        frame++
+      } catch {
+        // Fallback gracefully
+      }
     }
 
     // Initial render
@@ -109,3 +120,4 @@ export function useAnimatedFavicon() {
     }
   }, [reduceMotion])
 }
+
