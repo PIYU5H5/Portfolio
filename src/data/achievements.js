@@ -30,13 +30,13 @@ export const ACHIEVEMENTS = [
   },
   {
     id: "sih-2025",
-    title: "Smart India Hackathon 2025 Qualifier",
+    title: "Smart India Hackathon",
     organization: "Ministry of Education, Govt. of India",
-    date: "2025",
+    date: "2024 – 2025",
     category: "Hackathon",
-    description: "Advanced through rigorous national technical evaluations and prototype submissions for large-scale government challenges.",
-    badgeText: "National Qualifier",
-    highlight: true,
+    description: "Active participant developing prototype solutions for national problem statements, including the NeptuneRoute maritime route-planning platform.",
+    badgeText: "Participant",
+    highlight: false,
   },
   {
     id: "openai-nxtwave",

@@ -72,7 +72,7 @@ Key Projects:
 - Neural Network from Scratch: Vectorized MLP in pure Python & NumPy with 85% MNIST accuracy.
 - Elvion Hackathon Platform: Live event portal at https://elvion26.vercel.app/.
 Leadership: President, TECH Club (Aug 2025 - Present), organized Elvion Hackathon for 500+ attendees.
-Hackathons: AMD Developer Hackathon Global Finalist in San Francisco, SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon 2025 Qualifier.
+Hackathons: AMD Developer Hackathon Global Finalist in San Francisco, SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 Contact: piyushjadhavyt@gmail.com, GitHub https://github.com/PIYU5H5, LinkedIn https://www.linkedin.com/in/piyush-jadhav5/
 
 Rules:

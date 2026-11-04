@@ -31,7 +31,7 @@ Profile Details:
   5. Elvion Hackathon Platform (https://elvion26.vercel.app/) - official portal for 500+ attendees.
   6. NeptuneRoute / Ocean Route Master (Next.js 14, Leaflet, SeaRoutes API) - Smart India Hackathon vessel route-planning prototype (unpublished concept build, https://github.com/PIYU5H5/ocean-route-master).
   7. Truth-Teller (Vite, React, Gemini API) - Media authenticity detector (https://github.com/PIYU5H5/truth-teller).
-- Hackathons: AMD Developer Hackathon Global Finalist (lablab.ai, SF on-site finals, team Sheads), SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon 2025 Qualifier.
+- Hackathons: AMD Developer Hackathon Global Finalist (lablab.ai, SF on-site finals, team Sheads), SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 - Leadership: President of Sinhgad TECH Club (Aug 2025 - Present), directed Elvion Hackathon for 500+ participants.
 - Contact: Email piyushjadhavyt@gmail.com, GitHub github.com/PIYU5H5, LinkedIn linkedin.com/in/piyush-jadhav5.
 `
@@ -75,7 +75,7 @@ function generateLocalSmartResponse(query) {
       `Piyush is an active competitive builder and hackathon finalist:\n\n` +
       `- 🏆 **AMD Developer Hackathon (lablab.ai)**: Advanced to on-site global finals in San Francisco with team "Sheads".\n` +
       `- 🥈 **SuperNova 2.0 & Void Hackathon 8.0**: Finalist across nationwide university teams.\n` +
-      `- 🇮🇳 **Smart India Hackathon 2025**: Advanced through national technical evaluation & prototype phases.\n` +
+      `- 🇮🇳 **Smart India Hackathon**: Active participant developing maritime routing solutions (NeptuneRoute).\n` +
       `- 🚀 **President, TECH Club**: Co-organised the Elvion Hackathon for 500+ participants.\n\n` +
       `Inspect the complete timeline in [Achievements.md]!`
     )
