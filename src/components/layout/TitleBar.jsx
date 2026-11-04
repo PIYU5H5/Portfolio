@@ -8,16 +8,52 @@ export const TitleBar = () => {
   const { toggleSidebar, toggleCommandPalette, incrementLogoClicks } = useAppStore()
   const { showToast } = useToastStore()
   const [isTrafficHovered, setIsTrafficHovered] = useState(false)
+  const [redClickCount, setRedClickCount] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return parseInt(sessionStorage.getItem('pj_red_clicks') || '0', 10)
+    }
+    return 0
+  })
 
   const isMac = typeof navigator !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0
   const modKey = isMac ? '⌘' : 'Ctrl'
+  const isRedBlocked = redClickCount >= 3
 
   const handleRedClick = () => {
-    showToast({
-      type: 'info',
-      title: 'Nice try! 🚀',
-      description: "You can't close this portfolio. Feel free to explore every file and run commands in the terminal!",
-    })
+    if (isRedBlocked) {
+      showToast({
+        type: 'warning',
+        title: 'Action Blocked 🔒',
+        description: 'Told you, it is blocked :) You have to stay and explore!',
+      })
+      return
+    }
+
+    const nextCount = redClickCount + 1
+    setRedClickCount(nextCount)
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('pj_red_clicks', String(nextCount))
+    }
+
+    if (nextCount === 1) {
+      showToast({
+        type: 'warning',
+        title: "Wait, don't quit! 👀",
+        description: "You haven't even checked out the interactive terminal or secret themes yet!",
+      })
+    } else if (nextCount === 2) {
+      showToast({
+        type: 'error',
+        title: 'Still trying to leave? 🛑',
+        description: "Piyush ships high-impact code! Type 'sudo hire piyush' before you try that again.",
+      })
+    } else if (nextCount >= 3) {
+      showToast({
+        type: 'success',
+        title: 'Fine, I will block it :) 🔒',
+        description: "Close button officially disabled. You are now trapped in Piyush's portfolio until you hire him!",
+      })
+    }
   }
 
   const handleYellowClick = () => {
@@ -42,11 +78,21 @@ export const TitleBar = () => {
         >
           <button
             onClick={handleRedClick}
-            title="Close window"
-            className="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#e0443e] flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
-            aria-label="Close"
+            disabled={isRedBlocked}
+            title={isRedBlocked ? 'Fine, I will block it :)' : 'Close window'}
+            className={`w-3 h-3 rounded-full flex items-center justify-center transition-all ${
+              isRedBlocked
+                ? 'bg-neutral-600 opacity-40 cursor-not-allowed scale-95'
+                : 'bg-[#ff5f56] hover:bg-[#e0443e] cursor-pointer hover:scale-105 active:scale-95'
+            }`}
+            aria-label={isRedBlocked ? 'Close blocked' : 'Close'}
           >
-            {isTrafficHovered && <X size={7} className="text-[#4a0002] stroke-[3]" />}
+            {isTrafficHovered && !isRedBlocked && (
+              <X size={7} className="text-[#4a0002] stroke-[3]" />
+            )}
+            {isTrafficHovered && isRedBlocked && (
+              <X size={7} className="text-neutral-400 stroke-[2]" />
+            )}
           </button>
 
           <button
