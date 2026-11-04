@@ -46,20 +46,24 @@ export function executeCommand(rawCommand, uptimeSeconds) {
   if (trimmed.toLowerCase() === 'sudo hire piyush') {
     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       confetti({
-        particleCount: 120,
-        spread: 70,
+        particleCount: 80,
+        spread: 60,
         origin: { y: 0.6 },
         colors: ['#2f81f7', '#3fb950', '#a371f7', '#ffd700'],
       })
     }
     return {
+      startHireWizard: true,
       output:
         '✨ Permission granted.\n' +
         '📄 Drafting offer letter... [████████████████████] 100%\n\n' +
-        `📬 Email:    ${PROFILE.socials.email}\n` +
+        '🚀 Excellent choice! Piyush is ready to ship high-impact code.\n' +
+        `📨 You are now sending an email directly to Piyush (${PROFILE.socials.email}) via SMTP!\n` +
         `🌐 GitHub:   ${PROFILE.socials.github}\n` +
-        `💼 LinkedIn: ${PROFILE.socials.linkedin}\n` +
-        `⚡ LeetCode: ${PROFILE.socials.leetcode}`,
+        '------------------------------------------------------------\n' +
+        'Please enter your offer details below to dispatch your message straight to his Gmail.\n' +
+        '(Type "cancel" or "exit" at any prompt to abort)\n\n' +
+        'Step 1/3: What is your Name or Company?',
     }
   }
 

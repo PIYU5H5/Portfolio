@@ -5,8 +5,10 @@ import {
   Maximize2,
   Trash2,
 } from 'lucide-react'
+import confetti from 'canvas-confetti'
 import { useTerminalStore } from '../../store/useTerminalStore.js'
 import { executeCommand, KNOWN_COMMANDS } from '../../lib/commands.js'
+import { PROFILE } from '../../data/profile.js'
 
 const formatTerminalOutput = (text) => {
   if (!text) return null
@@ -75,8 +77,26 @@ export const Terminal = () => {
 
   const [isDragging, setIsDragging] = useState(false)
   const [isMaximized, setIsMaximized] = useState(false)
+  const [wizardStep, setWizardStep] = useState(null) // null | 'name' | 'email' | 'message'
+  const [wizardData, setWizardData] = useState({ name: '', email: '', message: '' })
+  const [isDispatching, setIsDispatching] = useState(false)
   const inputRef = useRef(null)
   const terminalEndRef = useRef(null)
+
+  const getPromptLabel = () => {
+    if (wizardStep === 'name') return '[Offer Wizard] Your Name >'
+    if (wizardStep === 'email') return '[Offer Wizard] Your Email >'
+    if (wizardStep === 'message') return '[Offer Wizard] Offer / Role Message >'
+    return 'piyush@portfolio:~$'
+  }
+
+  const getPlaceholder = () => {
+    if (isDispatching) return 'Dispatching offer email via SMTP...'
+    if (wizardStep === 'name') return 'Enter your name or company (or type "cancel")...'
+    if (wizardStep === 'email') return 'Enter your email address (or type "cancel")...'
+    if (wizardStep === 'message') return 'Enter your message/job details (or type "cancel")...'
+    return "Type 'help' or 'open projects'..."
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -114,10 +134,134 @@ export const Terminal = () => {
 
   if (!isOpen) return null
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      const cmd = currentInput.trim()
+      if (isDispatching) return
+
+      const rawInput = currentInput.trim()
+
+      // 1. If currently in interactive hire wizard
+      if (wizardStep) {
+        if (!rawInput) return
+
+        if (
+          rawInput.toLowerCase() === 'cancel' ||
+          rawInput.toLowerCase() === 'exit' ||
+          rawInput.toLowerCase() === 'quit'
+        ) {
+          addEntry({
+            command: rawInput,
+            prompt: getPromptLabel(),
+            output: '❌ Offer dispatch cancelled. Returned to normal shell.',
+          })
+          setWizardStep(null)
+          setWizardData({ name: '', email: '', message: '' })
+          setCurrentInput('')
+          return
+        }
+
+        if (wizardStep === 'name') {
+          addEntry({
+            command: rawInput,
+            prompt: getPromptLabel(),
+            output: `✓ Name recorded: "${rawInput}"\n\nStep 2/3: What is your Email address?`,
+          })
+          setWizardData((prev) => ({ ...prev, name: rawInput }))
+          setWizardStep('email')
+          setCurrentInput('')
+          return
+        }
+
+        if (wizardStep === 'email') {
+          if (!rawInput.includes('@') || !rawInput.includes('.')) {
+            addEntry({
+              command: rawInput,
+              prompt: getPromptLabel(),
+              output: '⚠️ Please enter a valid email address (e.g. name@company.com), or type "cancel" to abort:',
+              isError: true,
+            })
+            setCurrentInput('')
+            return
+          }
+          addEntry({
+            command: rawInput,
+            prompt: getPromptLabel(),
+            output: `✓ Email recorded: "${rawInput}"\n\nStep 3/3: What is your Offer / Role / Project message?`,
+          })
+          setWizardData((prev) => ({ ...prev, email: rawInput }))
+          setWizardStep('message')
+          setCurrentInput('')
+          return
+        }
+
+        if (wizardStep === 'message') {
+          const finalName = wizardData.name
+          const finalEmail = wizardData.email
+          const finalMessage = rawInput
+
+          addEntry({
+            command: rawInput,
+            prompt: getPromptLabel(),
+            output: `⏳ Connecting to Gmail SMTP server & dispatching offer to ${PROFILE.socials.email}...`,
+          })
+          setCurrentInput('')
+          setIsDispatching(true)
+
+          try {
+            const res = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: finalName,
+                email: finalEmail,
+                message: `[OFFER SUBMITTED VIA TERMINAL 'sudo hire piyush']\n\n${finalMessage}`,
+              }),
+            })
+
+            const data = await res.json().catch(() => ({}))
+
+            if (!res.ok) {
+              throw new Error(data.error || 'SMTP delivery failed')
+            }
+
+            if (typeof window !== 'undefined') {
+              confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#2f81f7', '#3fb950', '#a371f7', '#ffd700'],
+              })
+            }
+
+            addEntry({
+              output:
+                "🎉 SUCCESS: Offer email dispatched directly to Piyush's Gmail inbox via SMTP!\n" +
+                `Piyush has been notified and will reply directly to ${finalEmail}.\n\n` +
+                'Direct channels:\n' +
+                `📧 Email:    ${PROFILE.socials.email}\n` +
+                `🐙 GitHub:   ${PROFILE.socials.github}\n` +
+                `💼 LinkedIn: ${PROFILE.socials.linkedin}\n` +
+                `⚡ LeetCode: ${PROFILE.socials.leetcode}`,
+            })
+          } catch (err) {
+            addEntry({
+              output:
+                `⚠️ SMTP Dispatch notice: ${err.message || 'Server error'}.\n` +
+                `Don't worry! You can also reach Piyush directly at ${PROFILE.socials.email}.`,
+              isError: true,
+            })
+          } finally {
+            setIsDispatching(false)
+            setWizardStep(null)
+            setWizardData({ name: '', email: '', message: '' })
+          }
+          return
+        }
+      }
+
+      // 2. Normal CLI Command
+      const cmd = rawInput
       addToCommandHistory(cmd)
 
       if (cmd.toLowerCase() === 'clear') {
@@ -131,18 +275,27 @@ export const Terminal = () => {
 
       addEntry({
         command: cmd,
+        prompt: 'piyush@portfolio:~$',
         output: result.output,
         isError: result.isError,
       })
 
+      if (result.startHireWizard) {
+        setWizardStep('name')
+        setWizardData({ name: '', email: '', message: '' })
+      }
+
       setCurrentInput('')
     } else if (e.key === 'ArrowUp') {
+      if (wizardStep) return
       e.preventDefault()
       navigateHistory('up')
     } else if (e.key === 'ArrowDown') {
+      if (wizardStep) return
       e.preventDefault()
       navigateHistory('down')
     } else if (e.key === 'Tab') {
+      if (wizardStep) return
       e.preventDefault()
       const query = currentInput.trim().toLowerCase()
       if (query) {
@@ -216,7 +369,13 @@ export const Terminal = () => {
           <div key={entry.id} className="space-y-1">
             {entry.command && (
               <div className="flex items-center gap-2 text-text-muted">
-                <span className="text-accent font-semibold">piyush@portfolio:~$</span>
+                <span
+                  className={`font-semibold ${
+                    entry.prompt?.startsWith('[Offer') ? 'text-amber-400' : 'text-accent'
+                  }`}
+                >
+                  {entry.prompt || 'piyush@portfolio:~$'}
+                </span>
                 <span className="text-text-main font-medium">{entry.command}</span>
               </div>
             )}
@@ -233,15 +392,22 @@ export const Terminal = () => {
         ))}
 
         <div className="flex items-center gap-2 pt-1">
-          <span className="text-accent font-semibold shrink-0">piyush@portfolio:~$</span>
+          <span
+            className={`font-semibold shrink-0 ${
+              wizardStep ? 'text-amber-400' : 'text-accent'
+            }`}
+          >
+            {getPromptLabel()}
+          </span>
           <input
             ref={inputRef}
             type="text"
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent border-none outline-none font-mono text-xs text-text-main caret-accent focus:ring-0 p-0"
-            placeholder="Type 'help' or 'open projects'..."
+            disabled={isDispatching}
+            className="flex-1 bg-transparent border-none outline-none font-mono text-xs text-text-main caret-accent focus:ring-0 p-0 disabled:opacity-50"
+            placeholder={getPlaceholder()}
             autoComplete="off"
             spellCheck="false"
           />
