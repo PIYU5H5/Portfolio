@@ -35,7 +35,6 @@ export const useThemeStore = create((set) => ({
   currentTheme: initialTheme,
   fontSize: (typeof localStorage !== 'undefined' ? localStorage.getItem('pj_font_size') : null) || 'base',
   reduceMotion: getInitialMotion(),
-  showMinimap: typeof localStorage !== 'undefined' ? localStorage.getItem('pj_show_minimap') !== 'false' : true,
 
   setTheme: (themeId) => {
     if (typeof document !== 'undefined') {
@@ -67,18 +66,6 @@ export const useThemeStore = create((set) => ({
         // ignore
       }
       return { reduceMotion: next }
-    })
-  },
-
-  toggleMinimap: () => {
-    set((state) => {
-      const next = !state.showMinimap
-      try {
-        localStorage.setItem('pj_show_minimap', JSON.stringify(next))
-      } catch {
-        // ignore
-      }
-      return { showMinimap: next }
     })
   },
 }))

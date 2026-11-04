@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { X, Palette, Type, Eye, Sparkles } from 'lucide-react'
+import { X, Palette, Type, Sparkles } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore.js'
 import { useThemeStore } from '../../store/useThemeStore.js'
 import { THEMES } from '../../themes/themes.js'
@@ -13,8 +13,6 @@ export const SettingsModal = () => {
     setFontSize,
     reduceMotion,
     toggleReduceMotion,
-    showMinimap,
-    toggleMinimap,
   } = useThemeStore()
 
   if (!isSettingsOpen) return null
@@ -119,30 +117,6 @@ export const SettingsModal = () => {
                 <div
                   className={`w-4 h-4 rounded-full bg-white transition-transform ${
                     reduceMotion ? 'translate-x-5' : 'translate-x-0'
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="font-medium text-text-main flex items-center gap-1.5">
-                  <Eye size={13} className="text-accent" />
-                  <span>Code Minimap</span>
-                </div>
-                <div className="text-[11px] text-text-muted">
-                  Show miniature visual overview on the right of the editor (desktop)
-                </div>
-              </div>
-              <button
-                onClick={toggleMinimap}
-                className={`w-11 h-6 rounded-full transition-colors p-1 relative ${
-                  showMinimap ? 'bg-accent' : 'bg-bg border border-border'
-                }`}
-              >
-                <div
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                    showMinimap ? 'translate-x-5' : 'translate-x-0'
                   }`}
                 />
               </button>

@@ -4,7 +4,6 @@ import { FileQuestion, ArrowRight, Loader2 } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore.js'
 import { useThemeStore } from '../../store/useThemeStore.js'
 import { useTerminalStore } from '../../store/useTerminalStore.js'
-import { Minimap } from './Minimap.jsx'
 import { KeyCap } from '../ui/KeyCap.jsx'
 
 const HomeFile = lazy(() => import('../pages/HomeFile.jsx').then((m) => ({ default: m.HomeFile })))
@@ -167,8 +166,6 @@ export const EditorArea = () => {
           </motion.div>
         </AnimatePresence>
       </div>
-
-      <Minimap scrollContainerRef={scrollContainerRef} />
     </div>
   )
 }
