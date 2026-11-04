@@ -59,7 +59,6 @@ export function executeCommand(rawCommand, uptimeSeconds) {
         '📄 Drafting offer letter... [████████████████████] 100%\n\n' +
         '🚀 Excellent choice! Piyush is ready to ship high-impact code.\n' +
         `📨 You are now sending an email directly to Piyush (${PROFILE.socials.email}) via SMTP!\n` +
-        `🌐 GitHub:   ${PROFILE.socials.github}\n` +
         '------------------------------------------------------------\n' +
         'Please enter your offer details below to dispatch your message straight to his Gmail.\n' +
         '(Type "cancel" or "exit" at any prompt to abort)\n\n' +
