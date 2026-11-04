@@ -5,6 +5,7 @@ import { Sidebar } from './Sidebar.jsx'
 import { TabBar } from './TabBar.jsx'
 import { EditorArea } from './EditorArea.jsx'
 import { StatusBar } from './StatusBar.jsx'
+import { TerminalBootScreen } from './TerminalBootScreen.jsx'
 import { ToastContainer } from '../ui/Toast.jsx'
 
 import { useAppStore } from '../../store/useAppStore.js'
@@ -33,19 +34,14 @@ export const AppLayout = () => {
     }
   })
 
-  useEffect(() => {
-    if (isBooting) {
-      const timer = setTimeout(() => {
-        setIsBooting(false)
-        try {
-          sessionStorage.setItem('pj_has_booted', 'true')
-        } catch {
-          // ignore
-        }
-      }, 1200)
-      return () => clearTimeout(timer)
+  const handleBootComplete = () => {
+    setIsBooting(false)
+    try {
+      sessionStorage.setItem('pj_has_booted', 'true')
+    } catch {
+      // ignore
     }
-  }, [isBooting])
+  }
 
   useEffect(() => {
     const hash = window.location.hash.replace('#/', '').toLowerCase()
@@ -60,17 +56,7 @@ export const AppLayout = () => {
   }, [openFile])
 
   if (isBooting) {
-    return (
-      <div className="h-screen w-screen bg-[#070a0e] flex flex-col items-center justify-center space-y-4 font-mono text-xs select-none">
-        <div className="w-16 h-16 rounded-2xl bg-[#0f141c] border border-[#21262d] flex items-center justify-center text-2xl font-bold text-[#2f81f7] shadow-2xl animate-pulse">
-          PJ
-        </div>
-        <div className="text-slate-400">Loading Piyush Jadhav's Workspace...</div>
-        <div className="w-48 h-1.5 rounded-full bg-[#131920] overflow-hidden">
-          <div className="h-full bg-[#2f81f7] w-full animate-shimmer bg-[linear-gradient(90deg,transparent,#2f81f7,transparent)] bg-[length:200%_100%]" />
-        </div>
-      </div>
-    )
+    return <TerminalBootScreen onComplete={handleBootComplete} />
   }
 
   return (

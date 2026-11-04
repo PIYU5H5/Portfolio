@@ -23,7 +23,7 @@ export const StatusBar = () => {
     triggerWarning,
   } = useAppStore()
 
-  const { currentTheme, setTheme } = useThemeStore()
+  const { currentTheme, setTheme, isMatrixUnlocked } = useThemeStore()
   const { showToast } = useToastStore()
 
   const [currentTime, setCurrentTime] = useState('')
@@ -72,6 +72,7 @@ export const StatusBar = () => {
   const currentFile = activeTab ? FILES[activeTab] : null
   const languageMode = currentFile ? currentFile.language : 'Plain Text'
   const activeThemeObj = THEMES.find((t) => t.id === currentTheme)
+  const availableThemes = THEMES.filter((t) => !t.isSecret || isMatrixUnlocked)
 
   return (
     <footer className="h-6 w-full bg-bg-statusbar text-white flex items-center justify-between px-2 text-[11px] font-mono select-none z-30 shrink-0">
@@ -139,7 +140,7 @@ export const StatusBar = () => {
               <div className="px-3 py-1 font-bold text-[10px] text-text-muted uppercase border-b border-border">
                 Select Theme
               </div>
-              {THEMES.map((t) => (
+              {availableThemes.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => {
@@ -152,7 +153,14 @@ export const StatusBar = () => {
                       : 'hover:bg-bg hover:text-text-main'
                   }`}
                 >
-                  <span>{t.name}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span>{t.name}</span>
+                    {t.isSecret && (
+                      <span className="px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">
+                        SECRET
+                      </span>
+                    )}
+                  </span>
                   <span
                     className="w-2.5 h-2.5 rounded-full border border-border"
                     style={{ backgroundColor: t.previewColor }}

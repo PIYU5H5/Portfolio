@@ -13,7 +13,10 @@ export const SettingsModal = () => {
     setFontSize,
     reduceMotion,
     toggleReduceMotion,
+    isMatrixUnlocked,
   } = useThemeStore()
+
+  const visibleThemes = THEMES.filter((t) => !t.isSecret || isMatrixUnlocked)
 
   if (!isSettingsOpen) return null
 
@@ -46,10 +49,10 @@ export const SettingsModal = () => {
           <div>
             <div className="font-semibold text-text-main mb-2 flex items-center gap-1.5">
               <Palette size={14} className="text-accent" />
-              <span>Color Themes (7 themes)</span>
+              <span>Color Themes ({visibleThemes.length} themes)</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {THEMES.map((theme) => {
+              {visibleThemes.map((theme) => {
                 const isSelected = currentTheme === theme.id
                 return (
                   <button
@@ -62,7 +65,14 @@ export const SettingsModal = () => {
                     }`}
                   >
                     <div>
-                      <div className="font-medium text-text-main">{theme.name}</div>
+                      <div className="font-medium text-text-main flex items-center gap-1.5">
+                        <span>{theme.name}</span>
+                        {theme.isSecret && (
+                          <span className="px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">
+                            SECRET
+                          </span>
+                        )}
+                      </div>
                       <div className="text-[10px] text-text-muted">{theme.description}</div>
                     </div>
                     <span

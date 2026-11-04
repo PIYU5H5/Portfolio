@@ -30,7 +30,7 @@ export const CommandPalette = () => {
     isDevLogUnlocked,
   } = useAppStore()
 
-  const { setTheme } = useThemeStore()
+  const { setTheme, isMatrixUnlocked } = useThemeStore()
   const { toggleTerminal } = useTerminalStore()
   const { showToast } = useToastStore()
 
@@ -66,7 +66,7 @@ export const CommandPalette = () => {
         },
       })),
 
-    ...THEMES.map((t) => ({
+    ...THEMES.filter((t) => !t.isSecret || isMatrixUnlocked).map((t) => ({
       id: `theme-${t.id}`,
       title: `Theme: ${t.name}`,
       subtitle: t.description,

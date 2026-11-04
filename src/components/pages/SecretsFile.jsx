@@ -25,6 +25,7 @@ export const SecretsFile = () => {
           <p>• Piyush debugs faster with synthwave &amp; lofi playing at 110% volume.</p>
           <p>• The entire VS Code UI layout state is reactive and persistent across browser refreshes.</p>
           <p>• Have you tried typing <code className="text-pink-400 font-bold">sudo hire piyush</code> into the terminal yet?</p>
+          <p>• Type <code className="text-emerald-400 font-bold">GOAT</code> anywhere on the page to trigger the Matrix terminal theme.</p>
         </div>
 
         <button

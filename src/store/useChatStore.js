@@ -21,16 +21,16 @@ Profile Details:
 - SGPA: Sem 1: 8.73, Sem 2: 8.64, Sem 3: 8.32.
 - Core Stack: ${SKILLS_DATA.core_stack.join(', ')}.
 - Experience:
-  1. Full Stack Developer Intern at Indux Technology (Aug 2026 - Present): Built 8+ React Native views, cut rendering latency by 35%, 99.8% crash-free rate.
-  2. SDE Intern at Shoption: Lead Lens lead analysis and agent performance platform.
+  1. SDE Intern at Shoption (2026 – Present): Lead Lens lead analysis and agent performance platform.
+  2. Full Stack Developer Intern at Indux Technology (2026): Built 8+ React Native views, cut rendering latency by 35%, 99.8% crash-free rate.
 - Projects:
   1. Student Admission Management System (Next.js, Prisma, Redis, PostgreSQL) - served 500+ profiles with sub-200ms latency.
   2. AI Web Applications (React, Next.js, Cursor, Lovable) - AI-assisted workflows cutting cycles by 70%.
   3. AI & Automation Workflows (n8n, OpenAI API, Apify, Gmail API) - automated 40+ hrs/week of manual operations.
-  4. Neural Network from Scratch (Python, NumPy) - 85% accuracy on MNIST digit classification.
-  5. Elvion Hackathon Platform (https://elvion.theclub.tech/) - official portal for 500+ attendees.
-  6. UniDB Lab - SPPU DBMS practical simulator with sql.js and Claude AI.
-  7. Algorithm Visualizers - interactive Python Pygame simulations.
+  4. Neural Network from Scratch (Python, NumPy) - 85% accuracy on MNIST digit classification (https://github.com/PIYU5H5/Neural-Network).
+  5. Elvion Hackathon Platform (https://elvion26.vercel.app/) - official portal for 500+ attendees.
+  6. NeptuneRoute / Ocean Route Master (Next.js 14, Leaflet, SeaRoutes API) - Smart India Hackathon vessel route-planning prototype (unpublished concept build, https://github.com/PIYU5H5/ocean-route-master).
+  7. Truth-Teller (Vite, React, Gemini API) - Media authenticity detector (https://github.com/PIYU5H5/truth-teller).
 - Hackathons: AMD Developer Hackathon Global Finalist (lablab.ai, SF on-site finals, team Sheads), SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon 2025 Qualifier.
 - Leadership: President of Sinhgad TECH Club (Aug 2025 - Present), directed Elvion Hackathon for 500+ participants.
 - Contact: Email piyushjadhavyt@gmail.com, GitHub github.com/PIYU5H5, LinkedIn linkedin.com/in/piyush-jadhav5.
@@ -45,9 +45,9 @@ function generateLocalSmartResponse(query) {
       `1. **Student Admission Management System**: High-throughput admission engine using Next.js, Prisma, Redis, and PostgreSQL, serving 500+ students with sub-200ms latency.\n` +
       `2. **AI & Automation Pipelines**: Orchestrated n8n workflows with OpenAI and Gmail APIs, automating 40+ hours/week of manual operations.\n` +
       `3. **Neural Network from Scratch**: Vectorized multi-layer perceptron written purely in Python and NumPy achieving 85% MNIST accuracy.\n` +
-      `4. **Elvion Hackathon Platform**: Live portal handling 500+ registrations for Sinhgad TECH Club.\n` +
-      `5. **UniDB Lab**: In-browser DBMS practical playground with WebAssembly SQLite and Claude API.\n\n` +
-      `You can check out interactive demos and source code in [Projects.js]!`
+      `4. **Elvion Hackathon Platform**: Live portal handling 500+ registrations for Sinhgad TECH Club (https://elvion26.vercel.app/).\n` +
+      `5. **NeptuneRoute (Ocean Route Master)**: Maritime ship route-planning prototype engineered for Smart India Hackathon featuring dark Leaflet maps and SeaRoutes API (unpublished research prototype).\n\n` +
+      `You can check out all project details and source code in [Projects.js]!`
     )
   }
 
@@ -65,7 +65,7 @@ function generateLocalSmartResponse(query) {
   if (q.includes('intern') || q.includes('job') || q.includes('availab') || q.includes('hire') || q.includes('status')) {
     return (
       `**Yes, Piyush is actively open to internships and full-stack software engineering opportunities!**\n\n` +
-      `He has proven industry experience as a Full Stack Developer Intern at Indux Technology (cutting latency by 35% and building 8+ mobile views in React Native) and as an SDE Intern at Shoption.\n\n` +
+      `He has proven industry experience as an SDE Intern at Shoption (Lead Lens platform) and as a Full Stack Developer Intern at Indux Technology (cutting latency by 35% and building 8+ mobile views in React Native).\n\n` +
       `You can reach out directly via [Contact.jsx] or email him at [piyushjadhavyt@gmail.com](mailto:piyushjadhavyt@gmail.com). You can also run \`sudo hire piyush\` in the terminal!`
     )
   }
@@ -132,17 +132,19 @@ export const useChatStore = create((set, get) => ({
         }),
       })
 
-      if (response.ok && response.body) {
-        const reader = response.body.getReader()
-        const decoder = new TextDecoder()
+      if (response.ok) {
+        const data = await response.json()
+        const text = data.content || ''
+        if (!text) throw new Error('Empty model output')
+
+        const words = text.split(' ')
         let accumulated = ''
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) break
-          accumulated += decoder.decode(value, { stream: true })
+        for (let i = 0; i < words.length; i++) {
+          accumulated += (i > 0 ? ' ' : '') + words[i]
           set({ streamingText: accumulated })
+          await new Promise((resolve) => setTimeout(resolve, 20))
         }
-        finalAnswer = accumulated
+        finalAnswer = text
       } else {
         throw new Error('API route unavailable, using local intelligence')
       }

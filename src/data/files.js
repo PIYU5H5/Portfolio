@@ -52,7 +52,7 @@ export const FILES = {
     path: '/src/data/Experience.json',
     iconName: 'folder',
     iconColor: '#f97316',
-    description: 'Work timeline at Indux Technology & Shoption',
+    description: 'Work timeline at Shoption & Indux Technology',
   },
   'Achievements.md': {
     id: 'Achievements.md',

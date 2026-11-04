@@ -18,6 +18,8 @@ describe('Terminal Command Parser', () => {
     const res = executeCommand('sudo hire piyush', 10)
     expect(res.output).toContain('Permission granted')
     expect(res.output).toContain('Drafting offer letter')
+    expect(res.output).toContain('piyushjadhavyt@gmail.com')
+    expect(res.output).toContain('https://github.com/PIYU5H5')
   })
 
   it('handles unknown command with help hint', () => {

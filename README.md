@@ -1,10 +1,3 @@
-# Piyush Jadhav — Visual Studio Code Developer Portfolio
-
-A production-grade, highly interactive developer portfolio for **Piyush Jadhav** (3rd Year Computer Science and Engineering undergraduate, RMD Sinhgad, SPPU Pune), architected to mirror the complete experience of Visual Studio Code.
-
-Visitors can explore files in the explorer tree, switch between tabs with spring animations, invoke commands via the command palette, toggle among 7 bespoke color themes, run commands in an interactive fake terminal, and chat with an embedded AI Co-Pilot grounded in real engineering projects.
-
----
 
 ## 🛠️ Tech Stack & Architecture
 
@@ -16,40 +9,6 @@ Visitors can explore files in the explorer tree, switch between tabs with spring
 - **Testing:** Vitest (unit tests for fuzzy search algorithms and CLI command parser)
 - **Typography:** `JetBrains Mono` for editor chrome and code; `Inter` for clean body typography
 
----
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-Ensure you have **Node.js 18+** or **22+** installed.
-
-### 2. Clone & Install
-```bash
-git clone https://github.com/PIYU5H5/portfolio-website.git
-cd portfolio-website
-npm install
-```
-
-### 3. Run Development Server
-```bash
-npm run dev
-```
-Open your browser at `http://localhost:5173`.
-
-### 4. Run Unit Tests
-```bash
-npm test
-```
-
-### 5. Production Build
-```bash
-npm run build
-```
-Generates an optimized, code-split production bundle in `/dist`.
-
----
-
-## 📂 Content Management (Single Source of Truth)
 
 All portfolio data is decoupled from presentation components and centralized in `src/data/`:
 
@@ -96,7 +55,7 @@ Themes switch with zero re-render lag via CSS variables:
 ## 🥚 Easter Eggs
 
 - **Terminal Hiring Easter Egg:** Type `sudo hire piyush` in the terminal to trigger confetti and a special offer letter acceptance sequence.
-- **Konami Code:** Press `↑ ↑ ↓ ↓ ← → ← → B A` anywhere on the site to trigger the Matrix terminal theme.
+- **Secret GOAT Code:** Type `G O A T` anywhere on the site to trigger confetti and activate the Matrix terminal theme.
 - **Dev Log:** Click the "PJ" logo 5 times in the title bar to unlock `dev-log.md`.
 - **Secret File:** Open 5 different tabs to reveal `secrets.txt` in the file explorer.
 - **Red Traffic Light:** Hovering or clicking the red window button displays a playful IDE toast.
@@ -104,19 +63,4 @@ Themes switch with zero re-render lag via CSS variables:
 
 ---
 
-## 🌐 Deployment to Vercel / Netlify
-
-1. Push code to your GitHub repository:
-   ```bash
-   git add .
-   git commit -m "feat: VS Code developer portfolio for Piyush Jadhav"
-   git push origin main
-   ```
-2. Import the repository in **Vercel** or **Netlify**.
-3. (Optional) Set `LLM_API_KEY` in environment variables if connecting to an external OpenAI / Gemini LLM proxy. The site already features smart local streaming fallback when running client-side.
-4. Replace `public/resume.pdf` with your real resume PDF before going live.
-
----
-
-## 📄 License
-MIT © Piyush Jadhav
+Ran out of things to add : )

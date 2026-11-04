@@ -5,7 +5,7 @@ import {
   ExternalLink,
   ArrowUpRight,
 } from 'lucide-react'
-import { GithubIcon } from '../ui/SocialIcons.jsx'
+import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons.jsx'
 import { PROJECTS } from '../../data/projects.js'
 import { useAppStore } from '../../store/useAppStore.js'
 import { Badge } from '../ui/Badge.jsx'
@@ -15,7 +15,7 @@ export const ProjectsFile = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const categories = ['All', 'Full-Stack', 'AI', 'Automation', 'Visualizers', 'Hackathon']
+  const categories = ['All', 'Full-Stack', 'AI', 'Automation', 'Hackathon']
 
   const filtered = PROJECTS.filter((project) => {
     const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory
@@ -129,6 +129,16 @@ export const ProjectsFile = () => {
                 </div>
 
                 <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                  {project.isPrivateRepo && (
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-bg border border-border text-text-muted">
+                      Private repo
+                    </span>
+                  )}
+                  {project.sourceNote && (
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-bg border border-border text-text-muted">
+                      {project.sourceNote}
+                    </span>
+                  )}
                   {project.githubUrl && (
                     <a
                       href={project.githubUrl}
@@ -149,6 +159,17 @@ export const ProjectsFile = () => {
                       title="Live Demo"
                     >
                       <ExternalLink size={15} />
+                    </a>
+                  )}
+                  {project.linkedInUrl && (
+                    <a
+                      href={project.linkedInUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-1 rounded text-text-muted hover:text-sky-400 transition-colors"
+                      title="LinkedIn Case Study"
+                    >
+                      <LinkedinIcon size={15} />
                     </a>
                   )}
                 </div>

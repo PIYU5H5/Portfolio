@@ -7,7 +7,7 @@ import {
   Lightbulb,
   Zap,
 } from 'lucide-react'
-import { GithubIcon } from '../ui/SocialIcons.jsx'
+import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons.jsx'
 import { useAppStore } from '../../store/useAppStore.js'
 import { PROJECTS } from '../../data/projects.js'
 import { Badge } from '../ui/Badge.jsx'
@@ -62,7 +62,7 @@ export const ProjectDetailModal = () => {
             <p className="text-sm text-text-muted mt-2 font-mono leading-relaxed">{project.oneLiner}</p>
           </div>
 
-          <div className="flex items-center gap-3 pt-1">
+          <div className="flex flex-wrap items-center gap-3 pt-1">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
@@ -72,6 +72,18 @@ export const ProjectDetailModal = () => {
               >
                 <span>Live Demo</span>
                 <ExternalLink size={13} />
+              </a>
+            )}
+            {project.linkedInUrl && (
+              <a
+                href={project.linkedInUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0077b5]/15 border border-[#0077b5]/40 text-[#0077b5] dark:text-[#38bdf8] font-medium text-xs hover:bg-[#0077b5]/25 transition-colors shadow-sm"
+              >
+                <LinkedinIcon size={14} />
+                <span>LinkedIn Demo</span>
+                <ExternalLink size={12} />
               </a>
             )}
             {project.githubUrl && (
@@ -84,6 +96,16 @@ export const ProjectDetailModal = () => {
                 <GithubIcon size={14} />
                 <span>Source Code</span>
               </a>
+            )}
+            {project.isPrivateRepo && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bg border border-border text-text-muted font-mono text-xs">
+                <span>🔒 Private Organization Repo</span>
+              </span>
+            )}
+            {project.sourceNote && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bg border border-border text-text-muted font-mono text-xs">
+                <span>📄 {project.sourceNote}</span>
+              </span>
             )}
           </div>
 
@@ -111,6 +133,31 @@ export const ProjectDetailModal = () => {
               </div>
               <p className="text-xs text-text-main leading-relaxed pl-5">{project.impact}</p>
             </div>
+
+            {project.posts && project.posts.length > 0 && (
+              <div className="p-4 rounded-xl border border-sky-500/30 bg-sky-500/5 space-y-3">
+                <div className="flex items-center gap-2 text-sky-400 font-semibold text-xs font-mono">
+                  <LinkedinIcon size={15} />
+                  <span>PUBLISHED DEMOS & LINKEDIN CASE STUDIES</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {project.posts.map((post, idx) => (
+                    <a
+                      key={idx}
+                      href={post.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between p-2.5 rounded-lg bg-bg border border-border hover:border-sky-500/50 hover:bg-bg-elevated transition-colors text-xs text-text-main group"
+                    >
+                      <span className="font-medium text-text-main group-hover:text-sky-400 transition-colors">
+                        {post.title}
+                      </span>
+                      <ExternalLink size={13} className="text-text-muted group-hover:text-sky-400 shrink-0 ml-2" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div>

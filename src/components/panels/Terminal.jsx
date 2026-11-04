@@ -8,6 +8,55 @@ import {
 import { useTerminalStore } from '../../store/useTerminalStore.js'
 import { executeCommand, KNOWN_COMMANDS } from '../../lib/commands.js'
 
+const formatTerminalOutput = (text) => {
+  if (!text) return null
+  const tokenRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g
+  const parts = []
+  let lastIndex = 0
+  let match
+
+  while ((match = tokenRegex.exec(text)) !== null) {
+    const start = match.index
+    const end = tokenRegex.lastIndex
+    const token = match[0]
+
+    if (start > lastIndex) {
+      parts.push(text.slice(lastIndex, start))
+    }
+
+    if (token.startsWith('http://') || token.startsWith('https://')) {
+      parts.push(
+        <a
+          key={start}
+          href={token}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline hover:opacity-80 transition-opacity font-semibold"
+        >
+          {token}
+        </a>
+      )
+    } else {
+      parts.push(
+        <a
+          key={start}
+          href={`mailto:${token}`}
+          className="text-accent underline hover:opacity-80 transition-opacity font-semibold"
+        >
+          {token}
+        </a>
+      )
+    }
+    lastIndex = end
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts
+}
+
 export const Terminal = () => {
   const {
     isOpen,
@@ -177,7 +226,7 @@ export const Terminal = () => {
                   entry.isError ? 'border-danger text-danger/90' : 'border-accent/40 text-text-main'
                 }`}
               >
-                {entry.output}
+                {formatTerminalOutput(entry.output)}
               </div>
             )}
           </div>

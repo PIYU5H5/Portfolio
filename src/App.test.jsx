@@ -9,3 +9,4 @@ describe('App', () => {
     console.log('Rendered HTML length:', html.length)
   })
 })
+

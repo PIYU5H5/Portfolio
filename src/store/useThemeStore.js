@@ -26,6 +26,14 @@ const getInitialMotion = () => {
   return false
 }
 
+const getInitialMatrixUnlocked = () => {
+  try {
+    return localStorage.getItem('pj_matrix_unlocked') === 'true'
+  } catch {
+    return false
+  }
+}
+
 const initialTheme = getInitialTheme()
 if (typeof document !== 'undefined') {
   document.documentElement.setAttribute('data-theme', initialTheme)
@@ -35,6 +43,16 @@ export const useThemeStore = create((set) => ({
   currentTheme: initialTheme,
   fontSize: (typeof localStorage !== 'undefined' ? localStorage.getItem('pj_font_size') : null) || 'base',
   reduceMotion: getInitialMotion(),
+  isMatrixUnlocked: getInitialMatrixUnlocked(),
+
+  unlockMatrix: () => {
+    try {
+      localStorage.setItem('pj_matrix_unlocked', 'true')
+    } catch {
+      // ignore
+    }
+    set({ isMatrixUnlocked: true })
+  },
 
   setTheme: (themeId) => {
     if (typeof document !== 'undefined') {

@@ -63,7 +63,7 @@ export const SKILL_CATEGORIES_METADATA = [
     skills: [
       { name: "n8n", level: 90, context: "Complex self-hosted workflow automation & API orchestrations" },
       { name: "OpenAI API", level: 88, context: "Function calling, embeddings, streaming chat completions" },
-      { name: "Claude API", level: 86, context: "Contextual reasoning & assistant integrations (UniDB Lab)" },
+      { name: "Claude API", level: 86, context: "Contextual reasoning, code synthesis & assistant integrations" },
       { name: "Google Gemini", level: 85, context: "Multimodal analysis & fast inference" },
       { name: "Gmail API", level: 84, context: "Automated batch outbound and inbox event monitoring" },
       { name: "Apify", level: 85, context: "Headless web scraping actors & data extractors" },

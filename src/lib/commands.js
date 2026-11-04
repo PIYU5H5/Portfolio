@@ -30,6 +30,8 @@ export const KNOWN_COMMANDS = [
   'date',
   'echo',
   'sudo',
+  'reboot',
+  'restart',
 ]
 
 export function executeCommand(rawCommand, uptimeSeconds) {
@@ -53,8 +55,11 @@ export function executeCommand(rawCommand, uptimeSeconds) {
     return {
       output:
         '✨ Permission granted.\n' +
-        '📄 Drafting offer letter... [████████████████████] 100%\n' +
-        '🚀 Excellent choice! Piyush is ready to ship high-impact code. Check your inbox or reach out at piyushjadhavyt@gmail.com.',
+        '📄 Drafting offer letter... [████████████████████] 100%\n\n' +
+        `📬 Email:    ${PROFILE.socials.email}\n` +
+        `🌐 GitHub:   ${PROFILE.socials.github}\n` +
+        `💼 LinkedIn: ${PROFILE.socials.linkedin}\n` +
+        `⚡ LeetCode: ${PROFILE.socials.leetcode}`,
     }
   }
 
@@ -164,17 +169,26 @@ export function executeCommand(rawCommand, uptimeSeconds) {
     }
 
     case 'theme': {
+      const isUnlocked = useThemeStore.getState().isMatrixUnlocked
+      const available = THEMES.filter((t) => !t.isSecret || isUnlocked)
+
       if (args.length === 0) {
         return {
           output:
             `Current theme: ${useThemeStore.getState().currentTheme}\n` +
             `Available themes:\n` +
-            THEMES.map((t) => `  - ${t.id} (${t.name})`).join('\n') +
-            `\nUsage: theme <name> (e.g. "theme cyberpunk" or "theme matrix")`,
+            available.map((t) => `  - ${t.id} (${t.name}${t.isSecret ? ' [SECRET]' : ''})`).join('\n') +
+            `\nUsage: theme <name> (e.g. "theme cyberpunk")`,
         }
       }
       const requested = args[0].toLowerCase()
-      const match = THEMES.find((t) => t.id.toLowerCase().includes(requested))
+      if (requested.includes('matrix') && !isUnlocked) {
+        return {
+          output: `🔒 Access Denied: The 'matrix' theme is an encrypted easter egg.\nEnter the secret code on your keyboard to decrypt and unlock it!`,
+          isError: true,
+        }
+      }
+      const match = available.find((t) => t.id.toLowerCase().includes(requested))
       if (match) {
         useThemeStore.getState().setTheme(match.id)
         return { output: `Theme switched to '${match.name}'.` }
@@ -283,6 +297,21 @@ export function executeCommand(rawCommand, uptimeSeconds) {
       return {
         output: `File content preview for '${target}'. Type 'open ${target}' to view in editor tabs.`,
       }
+    }
+
+    case 'reboot':
+    case 'restart': {
+      try {
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem('pj_has_booted')
+        }
+        if (typeof window !== 'undefined') {
+          setTimeout(() => window.location.reload(), 300)
+        }
+      } catch {
+        // ignore
+      }
+      return { output: '⚡ Rebooting workspace and running terminal boot sequence...' }
     }
 
     default:

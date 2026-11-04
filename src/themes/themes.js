@@ -54,6 +54,7 @@ export const THEMES = [
     type: 'dark',
     previewColor: '#040d04',
     accentColor: '#00ff66',
+    isSecret: true,
   },
 ]
 
