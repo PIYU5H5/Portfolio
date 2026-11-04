@@ -1,0 +1,104 @@
+import { useEffect, useState, Suspense, lazy } from 'react'
+import { TitleBar } from './TitleBar.jsx'
+import { ActivityBar } from './ActivityBar.jsx'
+import { Sidebar } from './Sidebar.jsx'
+import { TabBar } from './TabBar.jsx'
+import { EditorArea } from './EditorArea.jsx'
+import { StatusBar } from './StatusBar.jsx'
+import { ToastContainer } from '../ui/Toast.jsx'
+
+import { useAppStore } from '../../store/useAppStore.js'
+import { useHotkeys } from '../../hooks/useHotkeys.js'
+import { useKonamiCode } from '../../hooks/useKonamiCode.js'
+import { FILES } from '../../data/files.js'
+
+const Terminal = lazy(() => import('../panels/Terminal.jsx').then((m) => ({ default: m.Terminal })))
+const CommandPalette = lazy(() => import('../panels/CommandPalette.jsx').then((m) => ({ default: m.CommandPalette })))
+const SettingsModal = lazy(() => import('../panels/SettingsModal.jsx').then((m) => ({ default: m.SettingsModal })))
+const GitBranchesModal = lazy(() => import('../panels/GitBranchesModal.jsx').then((m) => ({ default: m.GitBranchesModal })))
+const ProjectDetailModal = lazy(() => import('../panels/ProjectDetailModal.jsx').then((m) => ({ default: m.ProjectDetailModal })))
+
+export const AppLayout = () => {
+  const { isSidebarOpen, openFile } = useAppStore()
+  useHotkeys()
+  useKonamiCode()
+
+  const [isBooting, setIsBooting] = useState(() => {
+    try {
+      return !sessionStorage.getItem('pj_has_booted')
+    } catch {
+      return false
+    }
+  })
+
+  useEffect(() => {
+    if (isBooting) {
+      const timer = setTimeout(() => {
+        setIsBooting(false)
+        try {
+          sessionStorage.setItem('pj_has_booted', 'true')
+        } catch {
+          // ignore
+        }
+      }, 1200)
+      return () => clearTimeout(timer)
+    }
+  }, [isBooting])
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#/', '').toLowerCase()
+    if (hash) {
+      const match = Object.keys(FILES).find(
+        (f) => f.replace(/\.[^/.]+$/, '').toLowerCase() === hash
+      )
+      if (match) {
+        openFile(match)
+      }
+    }
+  }, [openFile])
+
+  if (isBooting) {
+    return (
+      <div className="h-screen w-screen bg-[#070a0e] flex flex-col items-center justify-center space-y-4 font-mono text-xs select-none">
+        <div className="w-16 h-16 rounded-2xl bg-[#0f141c] border border-[#21262d] flex items-center justify-center text-2xl font-bold text-[#2f81f7] shadow-2xl animate-pulse">
+          PJ
+        </div>
+        <div className="text-slate-400">Loading Piyush Jadhav's Workspace...</div>
+        <div className="w-48 h-1.5 rounded-full bg-[#131920] overflow-hidden">
+          <div className="h-full bg-[#2f81f7] w-full animate-shimmer bg-[linear-gradient(90deg,transparent,#2f81f7,transparent)] bg-[length:200%_100%]" />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="h-[100dvh] w-screen overflow-hidden flex flex-col bg-bg text-text-main">
+      <TitleBar />
+
+      <div className="flex-1 flex overflow-hidden relative">
+        <ActivityBar />
+
+        {isSidebarOpen && <Sidebar />}
+
+        <div className="flex-1 flex flex-col overflow-hidden relative">
+          <TabBar />
+          <EditorArea />
+          <Suspense fallback={null}>
+            <Terminal />
+          </Suspense>
+        </div>
+      </div>
+
+      <StatusBar />
+
+      <Suspense fallback={null}>
+        <CommandPalette />
+        <SettingsModal />
+        <GitBranchesModal />
+        <ProjectDetailModal />
+      </Suspense>
+
+      <ToastContainer />
+    </div>
+  )
+}
