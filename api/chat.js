@@ -66,11 +66,12 @@ Industry Experience:
 1. SDE Intern at Shoption (2026 – Present): Lead Lens lead analysis and agent performance platform.
 2. Full Stack Developer Intern at Indux Technology (2026): cut static rendering latency by 35%, 15+ bug fixes, 99.8% crash-free rate, 8+ mobile views in React Native.
 Key Projects:
-- NeptuneRoute (Ocean Route Master): Maritime ship route-planning prototype for Smart India Hackathon (Leaflet, SeaRoutes API, Next.js 14, unpublished concept build).
-- Student Admission Management System: High-throughput admission engine (Next.js, Prisma, Redis, PostgreSQL).
-- Enterprise AI & Automation: n8n pipelines, OpenAI & Gmail APIs, saving 40+ hrs/week.
-- Neural Network from Scratch: Vectorized MLP in pure Python & NumPy with 85% MNIST accuracy.
 - Elvion Hackathon Platform: Live event portal at https://elvion26.vercel.app/.
+- Neural Network from Scratch: Vectorized MLP in pure Python & NumPy with 85% MNIST accuracy (https://github.com/PIYU5H5/Neural-Network).
+- Enterprise AI & Automation: n8n pipelines, OpenAI & Gmail APIs, saving 40+ hrs/week with published workflow case studies.
+- NeptuneRoute (Ocean Route Master): Maritime ship route-planning prototype for Smart India Hackathon (Leaflet, SeaRoutes API, Next.js 14, unpublished concept build, https://github.com/PIYU5H5/ocean-route-master).
+- Truth-Teller Media Authenticity Detector: AI media verification prototype (https://github.com/PIYU5H5/truth-teller).
+- Student Admission Management System: High-throughput admission engine (Next.js, Prisma, Redis, PostgreSQL).
 Leadership: President, TECH Club (Aug 2025 - Present), organized Elvion Hackathon for 500+ attendees.
 Hackathons: AMD Developer Hackathon Global Finalist in San Francisco, SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 Contact: piyushjadhavyt@gmail.com, GitHub https://github.com/PIYU5H5, LinkedIn https://www.linkedin.com/in/piyush-jadhav5/

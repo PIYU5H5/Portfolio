@@ -1,40 +1,40 @@
 export const PROJECTS = [
   {
-    id: "student-admission-management",
-    title: "Student Admission Management System",
-    period: "May 2026 – Jul 2026",
-    category: "Full-Stack",
-    oneLiner: "High-throughput admission engine eliminating peak registration bottlenecks.",
+    id: "elvion-hackathon-platform",
+    title: "Elvion Hackathon Official Platform",
+    period: "Aug 2025 – Present",
+    category: "Hackathon",
+    oneLiner: "Flagship event portal for Sinhgad TECH Club's inter-college hackathon.",
     problem:
-      "Legacy admission portals suffered severe bottlenecking and connection timeouts during peak university registration windows under concurrent bursts.",
+      "The club required a high-capacity, interactive event platform to announce problem statements, manage 500+ participant registrations, and publish live schedules.",
     solution:
-      "Architected a fault-tolerant backend on Next.js, Prisma, and PostgreSQL with a Redis caching layer to offload repetitive reads and queue concurrent profile submissions.",
+      "Co-built and deployed the official Elvion hackathon portal with modern responsive design, team onboarding, and schedule notifications.",
     impact:
-      "Eliminated ~60% of redundant database round-trips via Redis caching, serving 500+ simultaneous student applications with sub-200ms API response latency.",
-    techStack: ["Next.js", "Prisma", "Redis", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+      "Successfully handled 500+ participant registrations, zero downtime during the launch window, and served as the live hub for industry sponsors.",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    liveUrl: "https://elvion26.vercel.app/",
     githubUrl: null,
-    liveUrl: null,
-    sourceNote: "Source available on request",
+    isPrivateRepo: true,
     featured: true,
-    statusChip: "Production Grade",
+    statusChip: "Live Event Platform",
   },
   {
-    id: "ai-web-applications",
-    title: "AI-Augmented Web Platforms",
-    period: "Nov 2024 – Mar 2026",
+    id: "neural-network-from-scratch",
+    title: "Vectorized Neural Network from Scratch",
+    period: "Oct 2024 – Jan 2025",
     category: "AI",
-    oneLiner: "Rapid-iteration full-stack client architectures powered by modern LLM workflows.",
+    oneLiner: "Mathematical implementation of feedforward deep learning without ML frameworks.",
     problem:
-      "Modern product teams require rapid prototyping without sacrificing architectural integrity, scalable state models, or multi-device design systems.",
+      "Abstract high-level ML libraries often obscure low-level gradient dynamics, backpropagation mechanics, and matrix optimization challenges.",
     solution:
-      "Engineered full-stack client architectures and intelligent matching algorithms utilizing AI-augmented engineering workflows (Cursor, Lovable), crafting modular design tokens and type-safe component libraries.",
+      "Programmed a vectorized multi-layer perceptron strictly using Python and NumPy, deriving forward propagation, backpropagation, and mini-batch gradient descent from first principles.",
     impact:
-      "Compressed standard feature delivery cycles by ~70% while sustaining zero-regression test coverage and seamless multi-screen responsiveness.",
-    techStack: ["React", "Next.js", "Cursor", "Lovable", "TypeScript", "Tailwind CSS", "Zustand"],
-    githubUrl: null,
+      "Benchmarked on the MNIST handwritten digit dataset, achieving 85% test accuracy with zero external machine learning dependencies.",
+    techStack: ["Python", "NumPy", "Linear Algebra", "Calculus", "Data Analysis"],
+    githubUrl: "https://github.com/PIYU5H5/Neural-Network",
     liveUrl: null,
     featured: true,
-    statusChip: "Rapid Delivery",
+    statusChip: "85% MNIST Acc",
   },
   {
     id: "ai-automation-workflows",
@@ -62,43 +62,6 @@ export const PROJECTS = [
     statusChip: "40+ hrs/wk saved",
   },
   {
-    id: "neural-network-from-scratch",
-    title: "Vectorized Neural Network from Scratch",
-    period: "Oct 2024 – Jan 2025",
-    category: "AI",
-    oneLiner: "Mathematical implementation of feedforward deep learning without ML frameworks.",
-    problem:
-      "Abstract high-level ML libraries often obscure low-level gradient dynamics, backpropagation mechanics, and matrix optimization challenges.",
-    solution:
-      "Programmed a vectorized multi-layer perceptron strictly using Python and NumPy, deriving forward propagation, backpropagation, and mini-batch gradient descent from first principles.",
-    impact:
-      "Benchmarked on the MNIST handwritten digit dataset, achieving 85% test accuracy with zero external machine learning dependencies.",
-    techStack: ["Python", "NumPy", "Linear Algebra", "Calculus", "Data Analysis"],
-    githubUrl: "https://github.com/PIYU5H5/Neural-Network",
-    liveUrl: null,
-    featured: true,
-    statusChip: "85% MNIST Acc",
-  },
-  {
-    id: "elvion-hackathon-platform",
-    title: "Elvion Hackathon Official Platform",
-    period: "Aug 2025 – Present",
-    category: "Hackathon",
-    oneLiner: "Flagship event portal for Sinhgad TECH Club's inter-college hackathon.",
-    problem:
-      "The club required a high-capacity, interactive event platform to announce problem statements, manage 500+ participant registrations, and publish live schedules.",
-    solution:
-      "Co-built and deployed the official Elvion hackathon portal with modern responsive design, team onboarding, and schedule notifications.",
-    impact:
-      "Successfully handled 500+ participant registrations, zero downtime during the launch window, and served as the live hub for industry sponsors.",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
-    liveUrl: "https://elvion26.vercel.app/",
-    githubUrl: null,
-    isPrivateRepo: true,
-    featured: false,
-    statusChip: "Live Event Platform",
-  },
-  {
     id: "neptuneroute",
     title: "NeptuneRoute (Ocean Route Master)",
     period: "2024",
@@ -113,7 +76,7 @@ export const PROJECTS = [
     techStack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Leaflet", "SeaRoutes API"],
     githubUrl: "https://github.com/PIYU5H5/ocean-route-master",
     liveUrl: null,
-    featured: false,
+    featured: true,
     statusChip: "Hackathon Prototype",
   },
   {
@@ -131,9 +94,28 @@ export const PROJECTS = [
     techStack: ["Vite", "React", "TypeScript", "Google Gemini", "Supabase Edge Functions"],
     githubUrl: "https://github.com/PIYU5H5/truth-teller",
     liveUrl: null,
-    featured: false,
+    featured: true,
     isWip: true,
     statusChip: "Work In Progress",
+  },
+  {
+    id: "student-admission-management",
+    title: "Student Admission Management System",
+    period: "May 2026 – Jul 2026",
+    category: "Full-Stack",
+    oneLiner: "High-throughput admission engine eliminating peak registration bottlenecks.",
+    problem:
+      "Legacy admission portals suffered severe bottlenecking and connection timeouts during peak university registration windows under concurrent bursts.",
+    solution:
+      "Architected a fault-tolerant backend on Next.js, Prisma, and PostgreSQL with a Redis caching layer to offload repetitive reads and queue concurrent profile submissions.",
+    impact:
+      "Eliminated ~60% of redundant database round-trips via Redis caching, serving 500+ simultaneous student applications with sub-200ms API response latency.",
+    techStack: ["Next.js", "Prisma", "Redis", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+    githubUrl: null,
+    liveUrl: null,
+    sourceNote: "Source available on request",
+    featured: false,
+    statusChip: "Production Grade",
   },
   {
     id: "lead-lens-shoption",
@@ -153,5 +135,23 @@ export const PROJECTS = [
     isPrivateRepo: true,
     featured: false,
     statusChip: "Enterprise SDE Intern",
+  },
+  {
+    id: "ai-web-applications",
+    title: "AI-Augmented Web Platforms",
+    period: "Nov 2024 – Mar 2026",
+    category: "AI",
+    oneLiner: "Rapid-iteration full-stack client architectures powered by modern LLM workflows.",
+    problem:
+      "Modern product teams require rapid prototyping without sacrificing architectural integrity, scalable state models, or multi-device design systems.",
+    solution:
+      "Engineered full-stack client architectures and intelligent matching algorithms utilizing AI-augmented engineering workflows (Cursor, Lovable), crafting modular design tokens and type-safe component libraries.",
+    impact:
+      "Compressed standard feature delivery cycles by ~70% while sustaining zero-regression test coverage and seamless multi-screen responsiveness.",
+    techStack: ["React", "Next.js", "Cursor", "Lovable", "TypeScript", "Tailwind CSS", "Zustand"],
+    githubUrl: null,
+    liveUrl: null,
+    featured: false,
+    statusChip: "Rapid Delivery",
   },
 ]

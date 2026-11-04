@@ -24,13 +24,13 @@ Profile Details:
   1. SDE Intern at Shoption (2026 – Present): Lead Lens lead analysis and agent performance platform.
   2. Full Stack Developer Intern at Indux Technology (2026): Built 8+ React Native views, cut rendering latency by 35%, 99.8% crash-free rate.
 - Projects:
-  1. Student Admission Management System (Next.js, Prisma, Redis, PostgreSQL) - served 500+ profiles with sub-200ms latency.
-  2. AI Web Applications (React, Next.js, Cursor, Lovable) - AI-assisted workflows cutting cycles by 70%.
-  3. AI & Automation Workflows (n8n, OpenAI API, Apify, Gmail API) - automated 40+ hrs/week of manual operations.
-  4. Neural Network from Scratch (Python, NumPy) - 85% accuracy on MNIST digit classification (https://github.com/PIYU5H5/Neural-Network).
-  5. Elvion Hackathon Platform (https://elvion26.vercel.app/) - official portal for 500+ attendees.
-  6. NeptuneRoute / Ocean Route Master (Next.js 14, Leaflet, SeaRoutes API) - Smart India Hackathon vessel route-planning prototype (unpublished concept build, https://github.com/PIYU5H5/ocean-route-master).
-  7. Truth-Teller (Vite, React, Gemini API) - Media authenticity detector (https://github.com/PIYU5H5/truth-teller).
+  1. Elvion Hackathon Platform (https://elvion26.vercel.app/) - official portal for 500+ attendees.
+  2. Neural Network from Scratch (Python, NumPy) - 85% accuracy on MNIST digit classification (https://github.com/PIYU5H5/Neural-Network).
+  3. AI & Automation Workflows (n8n, OpenAI API, Apify, Gmail API) - automated 40+ hrs/week of manual operations with 4 case studies.
+  4. NeptuneRoute / Ocean Route Master (Next.js 14, Leaflet, SeaRoutes API) - Smart India Hackathon vessel route-planning prototype (unpublished concept build, https://github.com/PIYU5H5/ocean-route-master).
+  5. Truth-Teller (Vite, React, Gemini API) - Media authenticity detector (https://github.com/PIYU5H5/truth-teller).
+  6. Student Admission Management System (Next.js, Prisma, Redis, PostgreSQL) - served 500+ profiles with sub-200ms latency.
+  7. AI Web Applications (React, Next.js, Cursor, Lovable) - AI-assisted workflows cutting cycles by 70%.
 - Hackathons: AMD Developer Hackathon Global Finalist (lablab.ai, SF on-site finals, team Sheads), SuperNova 2.0 Finalist, Void Hackathon 8.0, Smart India Hackathon Participant.
 - Leadership: President of Sinhgad TECH Club (Aug 2025 - Present), directed Elvion Hackathon for 500+ participants.
 - Interests & Beyond Code: Volleyball, Hockey, Kabaddi (teamwork & competitive discipline), strength-training & running, story-driven/strategy gaming, and anime.
@@ -43,11 +43,12 @@ function generateLocalSmartResponse(query) {
   if (q.includes('project') || q.includes('built') || q.includes('work') || q.includes('portfolio')) {
     return (
       `Piyush has built several notable production-grade systems:\n\n` +
-      `1. **Student Admission Management System**: High-throughput admission engine using Next.js, Prisma, Redis, and PostgreSQL, serving 500+ students with sub-200ms latency.\n` +
-      `2. **AI & Automation Pipelines**: Orchestrated n8n workflows with OpenAI and Gmail APIs, automating 40+ hours/week of manual operations.\n` +
-      `3. **Neural Network from Scratch**: Vectorized multi-layer perceptron written purely in Python and NumPy achieving 85% MNIST accuracy.\n` +
-      `4. **Elvion Hackathon Platform**: Live portal handling 500+ registrations for Sinhgad TECH Club (https://elvion26.vercel.app/).\n` +
-      `5. **NeptuneRoute (Ocean Route Master)**: Maritime ship route-planning prototype engineered for Smart India Hackathon featuring dark Leaflet maps and SeaRoutes API (unpublished research prototype).\n\n` +
+      `1. **Elvion Hackathon Platform**: Live portal handling 500+ registrations for Sinhgad TECH Club (https://elvion26.vercel.app/).\n` +
+      `2. **Neural Network from Scratch**: Vectorized multi-layer perceptron written purely in Python and NumPy achieving 85% MNIST accuracy (https://github.com/PIYU5H5/Neural-Network).\n` +
+      `3. **Enterprise AI & Automation Pipelines**: Orchestrated n8n workflows with OpenAI and Gmail APIs, automating 40+ hours/week with public demonstration case studies.\n` +
+      `4. **NeptuneRoute (Ocean Route Master)**: Maritime ship route-planning prototype engineered for Smart India Hackathon featuring dark Leaflet maps and SeaRoutes API (https://github.com/PIYU5H5/ocean-route-master).\n` +
+      `5. **Truth-Teller Media Authenticity Detector**: Multimodal AI verification engine inspecting synthetic artifacts (https://github.com/PIYU5H5/truth-teller).\n` +
+      `6. **Student Admission Management System**: High-throughput admission engine using Next.js, Prisma, Redis, and PostgreSQL (sub-200ms latency).\n\n` +
       `You can check out all project details and source code in [Projects.js]!`
     )
   }

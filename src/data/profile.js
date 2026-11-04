@@ -36,7 +36,7 @@ export const PROFILE = {
   stats: {
     leetcodeSolved: "200+",
     hackathonFinals: "3",
-    featuredProjects: "4",
+    featuredProjects: "5",
     participantsHosted: "500+",
     weeklyHoursAutomated: "40+ hrs",
   },
