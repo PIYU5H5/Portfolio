@@ -138,10 +138,10 @@ function apiChatDevPlugin() {
             const safeMessage = String(message).slice(0, 5000)
 
             await transporter.sendMail({
-              from: `"Portfolio Contact Form" <${smtpUser}>`,
+              from: `"${safeName} (via Portfolio)" <${smtpUser}>`,
               to: smtpUser,
               replyTo: `${safeName} <${safeEmail}>`,
-              subject: `🚀 Portfolio Message from ${safeName}`,
+              subject: `🚀 [Portfolio] Message from ${safeName} (${safeEmail})`,
               text: `Name: ${safeName}\nEmail: ${safeEmail}\n\nMessage:\n${safeMessage}`,
               html: `
                 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
