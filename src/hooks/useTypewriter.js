@@ -33,3 +33,4 @@ export function useTypewriter(words, typingSpeed = 75, deletingSpeed = 40, pause
 
   return words && words[wordIndex] ? words[wordIndex].substring(0, subIndex) : ''
 }
+

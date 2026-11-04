@@ -80,3 +80,4 @@ export const useTerminalStore = create((set, get) => ({
     }
   },
 }))
+

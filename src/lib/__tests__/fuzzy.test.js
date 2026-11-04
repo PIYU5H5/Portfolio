@@ -25,3 +25,4 @@ describe('Fuzzy Search Matching', () => {
     expect(results[0].item).toBe('Projects.js')
   })
 })
+

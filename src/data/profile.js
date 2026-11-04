@@ -59,3 +59,4 @@ export const PROFILE = {
     "Avid fan of sci-fi cinema, mechanical keyboards, and brewing the perfect dark roast coffee before marathon hackathons.",
   ],
 }
+

@@ -157,3 +157,4 @@ export const PROJECTS = [
     statusChip: "Enterprise SDE Intern",
   },
 ]
+

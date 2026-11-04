@@ -55,3 +55,4 @@ export function fuzzyFilter(items, query, getString) {
 
   return results.sort((a, b) => b.score - a.score)
 }
+

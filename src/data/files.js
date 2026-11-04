@@ -115,3 +115,4 @@ export const FILES = {
 
 export const INITIAL_TABS = ['Home.jsx', 'Projects.js', 'About.jsx']
 export const DEFAULT_ACTIVE_TAB = 'Home.jsx'
+

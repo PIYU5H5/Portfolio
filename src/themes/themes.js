@@ -56,3 +56,4 @@ export const THEMES = [
     accentColor: '#00ff66',
   },
 ]
+

@@ -1,12 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2f81f7" />
-      <stop offset="100%" stop-color="#3fb950" />
+    <linearGradient id="pj-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f81f7">
+        <animate attributeName="stop-color" values="#2f81f7;#3fb950;#a371f7;#2f81f7" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#3fb950">
+        <animate attributeName="stop-color" values="#3fb950;#a371f7;#2f81f7;#3fb950" dur="4s" repeatCount="indefinite" />
+      </stop>
     </linearGradient>
+    <style>
+      @keyframes blink {
+        0%, 45% { opacity: 1; }
+        50%, 95% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+      .cursor-blink {
+        animation: blink 1s step-end infinite;
+      }
+    </style>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#0b0f14" />
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#grad)" stroke-width="2" />
-  <path d="M18 22 L28 32 L18 42" fill="none" stroke="#2f81f7" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M32 42 L46 42" fill="none" stroke="#3fb950" stroke-width="4.5" stroke-linecap="round" />
+
+  <!-- Background tile -->
+  <rect width="64" height="64" rx="16" fill="#0d1117" />
+  
+  <!-- Outer glowing border -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="url(#pj-border)" stroke-width="2.5" />
+
+  <!-- Terminal chevron prompt (>) -->
+  <path d="M18 20 L30 32 L18 44" fill="none" stroke="#2f81f7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Terminal blinking cursor (_) -->
+  <path class="cursor-blink" d="M34 44 L48 44" fill="none" stroke="#3fb950" stroke-width="5" stroke-linecap="round">
+    <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.45;0.5;0.95;1" dur="1s" repeatCount="indefinite" />
+  </path>
 </svg>

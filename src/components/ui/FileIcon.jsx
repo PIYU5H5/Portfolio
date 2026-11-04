@@ -72,3 +72,4 @@ export const SpecialIcon = ({ type, size = 16, className = '' }) => {
       return <FileText size={size} className={`text-slate-400 ${className}`} />
   }
 }
+

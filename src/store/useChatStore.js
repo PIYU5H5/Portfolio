@@ -177,3 +177,4 @@ export const useChatStore = create((set, get) => ({
     set({ messages: INITIAL_MESSAGES, isStreaming: false, streamingText: '' })
   },
 }))
+

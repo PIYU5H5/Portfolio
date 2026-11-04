@@ -7,3 +7,4 @@ export const KeyCap = ({ children, className = '' }) => {
     </kbd>
   )
 }
+

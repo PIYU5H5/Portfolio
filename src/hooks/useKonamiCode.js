@@ -47,3 +47,4 @@ export function useKonamiCode() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [index, setTheme, showToast])
 }
+

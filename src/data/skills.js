@@ -93,3 +93,4 @@ export const SKILL_CATEGORIES_METADATA = [
     ],
   },
 ]
+

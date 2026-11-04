@@ -26,3 +26,4 @@ describe('Terminal Command Parser', () => {
     expect(res.output).toContain('command not found')
   })
 })
+

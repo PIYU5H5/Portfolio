@@ -10,6 +10,7 @@ import { ToastContainer } from '../ui/Toast.jsx'
 import { useAppStore } from '../../store/useAppStore.js'
 import { useHotkeys } from '../../hooks/useHotkeys.js'
 import { useKonamiCode } from '../../hooks/useKonamiCode.js'
+import { useAnimatedFavicon } from '../../hooks/useAnimatedFavicon.js'
 import { FILES } from '../../data/files.js'
 
 const Terminal = lazy(() => import('../panels/Terminal.jsx').then((m) => ({ default: m.Terminal })))
@@ -22,6 +23,7 @@ export const AppLayout = () => {
   const { isSidebarOpen, openFile } = useAppStore()
   useHotkeys()
   useKonamiCode()
+  useAnimatedFavicon()
 
   const [isBooting, setIsBooting] = useState(() => {
     try {
@@ -102,3 +104,4 @@ export const AppLayout = () => {
     </div>
   )
 }
+
