@@ -36,7 +36,7 @@ export const ReadmeFile = () => {
           VS Code Developer Portfolio <span className="text-accent">README</span>
         </h1>
         <p className="text-sm text-text-muted font-mono leading-relaxed">
-          Welcome to the interactive portfolio environment for <strong>Piyush Jadhav</strong>.
+          Welcome to the environment from <strong>Piyush Jadhav</strong>.
           Engineered from scratch to mirror the complete experience of Visual Studio Code.
         </p>
       </div>
