@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Code2,
   BarChart3,
@@ -257,42 +257,77 @@ export const SkillsFile = () => {
         <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-bg-elevated border border-border self-start lg:self-auto shadow-sm">
           <button
             onClick={() => setViewMode('chart')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors select-none ${
               viewMode === 'chart'
-                ? 'bg-accent text-white font-semibold shadow-xs'
+                ? 'text-white font-semibold'
                 : 'text-text-muted hover:text-text-main hover:bg-bg/60'
             }`}
           >
-            <BarChart3 size={13} />
-            <span>Proficiency View</span>
+            {viewMode === 'chart' && (
+              <motion.div
+                layoutId="skillsViewModeIndicator"
+                className="absolute inset-0 bg-accent rounded-lg shadow-xs"
+                transition={{ type: 'spring', damping: 24, stiffness: 300 }}
+              />
+            )}
+            <span className="relative z-10 flex items-center gap-1.5">
+              <BarChart3 size={13} />
+              <span>Proficiency View</span>
+            </span>
           </button>
           <button
             onClick={() => setViewMode('windows')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors select-none ${
               viewMode === 'windows'
-                ? 'bg-accent text-white font-semibold shadow-xs'
+                ? 'text-white font-semibold'
                 : 'text-text-muted hover:text-text-main hover:bg-bg/60'
             }`}
           >
-            <AppWindow size={13} />
-            <span>Interactive Windows</span>
+            {viewMode === 'windows' && (
+              <motion.div
+                layoutId="skillsViewModeIndicator"
+                className="absolute inset-0 bg-accent rounded-lg shadow-xs"
+                transition={{ type: 'spring', damping: 24, stiffness: 300 }}
+              />
+            )}
+            <span className="relative z-10 flex items-center gap-1.5">
+              <AppWindow size={13} />
+              <span>Interactive Windows</span>
+            </span>
           </button>
           <button
             onClick={() => setViewMode('code')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors select-none ${
               viewMode === 'code'
-                ? 'bg-accent text-white font-semibold shadow-xs'
+                ? 'text-white font-semibold'
                 : 'text-text-muted hover:text-text-main hover:bg-bg/60'
             }`}
           >
-            <Code2 size={13} />
-            <span>JSON Code</span>
+            {viewMode === 'code' && (
+              <motion.div
+                layoutId="skillsViewModeIndicator"
+                className="absolute inset-0 bg-accent rounded-lg shadow-xs"
+                transition={{ type: 'spring', damping: 24, stiffness: 300 }}
+              />
+            )}
+            <span className="relative z-10 flex items-center gap-1.5">
+              <Code2 size={13} />
+              <span>JSON Code</span>
+            </span>
           </button>
         </div>
       </div>
 
-      {/* ================= VIEW: INTERACTIVE WINDOWS ================= */}
-      {viewMode === 'windows' && (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={viewMode}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* ================= VIEW: INTERACTIVE WINDOWS ================= */}
+          {viewMode === 'windows' && (
         <div className="space-y-3">
           {/* Controls & Quick Actions */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
@@ -471,6 +506,8 @@ export const SkillsFile = () => {
           ))}
         </div>
       )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import {
   Search,
   ExternalLink,
   ArrowUpRight,
+  Network,
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons.jsx'
 import { PROJECTS } from '../../data/projects.js'
@@ -82,18 +83,31 @@ export const ProjectsFile = () => {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => selectProjectDetail(project.id)}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => selectProjectDetail(project.id, 'spec')}
               className="group relative flex flex-col justify-between p-5 rounded-xl border border-border bg-bg-elevated/50 hover:bg-bg-elevated hover:border-accent/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5">
                     <Badge variant="accent" size="sm">{project.category}</Badge>
                     {project.statusChip && <Badge variant="success" size="sm">{project.statusChip}</Badge>}
                     {project.isWip && <Badge variant="warning" size="sm">WIP</Badge>}
                   </div>
-                  <span className="text-[11px] font-mono text-text-muted">{project.period}</span>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        selectProjectDetail(project.id, 'architecture')
+                      }}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium text-accent bg-accent/10 border border-accent/30 hover:bg-accent/20 transition-colors"
+                      title="Inspect Interactive Architecture Diagram"
+                    >
+                      <Network size={11} />
+                      <span className="hidden sm:inline">Architecture</span>
+                    </button>
+                    <span className="text-[11px] font-mono text-text-muted shrink-0">{project.period}</span>
+                  </div>
                 </div>
 
                 <div>

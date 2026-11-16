@@ -34,6 +34,7 @@ export const useAppStore = create((set, get) => ({
   isSettingsOpen: false,
   isGitBranchesOpen: false,
   selectedProjectDetailId: null,
+  selectedProjectModalTab: 'spec',
   tabsOpenedHistory: new Set(initial.tabs),
   isSecretsUnlocked: false,
   logoClickCount: 0,
@@ -186,8 +187,12 @@ export const useAppStore = create((set, get) => ({
     }))
   },
 
-  selectProjectDetail: (projectId) => {
-    set({ selectedProjectDetailId: projectId })
+  selectProjectDetail: (projectId, initialTab = 'spec') => {
+    set({ selectedProjectDetailId: projectId, selectedProjectModalTab: initialTab })
+  },
+
+  setSelectedProjectModalTab: (tab) => {
+    set({ selectedProjectModalTab: tab })
   },
 
   incrementLogoClicks: () => {

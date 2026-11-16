@@ -20,7 +20,7 @@ export const Badge = ({
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 font-mono font-medium rounded-full border transition-all ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center gap-1.5 font-mono font-medium rounded-full border whitespace-nowrap shrink-0 transition-all ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
       {children}
     </span>
