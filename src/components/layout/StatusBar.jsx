@@ -7,9 +7,11 @@ import {
   CheckCheck,
   Palette,
   Clock,
+  Headphones,
 } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore.js'
 import { useThemeStore } from '../../store/useThemeStore.js'
+import { useExtensionStore } from '../../store/useExtensionStore.js'
 import { useToastStore } from '../ui/Toast.jsx'
 import { FILES } from '../../data/files.js'
 import { THEMES } from '../../themes/themes.js'
@@ -25,6 +27,8 @@ export const StatusBar = () => {
 
   const { currentTheme, setTheme, isMatrixUnlocked } = useThemeStore()
   const { showToast } = useToastStore()
+  const { installed, isLofiPlaying, toggleLofiPlayback } = useExtensionStore()
+  const isLofiInstalled = !!installed['lofi-mode']
 
   const [currentTime, setCurrentTime] = useState('')
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false)
@@ -105,6 +109,21 @@ export const StatusBar = () => {
             </span>
           </div>
         </button>
+
+        {isLofiInstalled && (
+          <button
+            onClick={toggleLofiPlayback}
+            className={`flex items-center gap-1.5 px-2 py-0.5 rounded transition-colors text-white ${
+              isLofiPlaying ? 'bg-black/30 font-semibold text-emerald-300' : 'hover:bg-black/20 text-white/80'
+            }`}
+            title={isLofiPlaying ? 'Pause Lo-Fi Focus Music' : 'Play Lo-Fi Focus Music'}
+          >
+            <Headphones size={12} className={isLofiPlaying ? 'text-emerald-400 animate-pulse' : ''} />
+            <span className="hidden sm:inline">
+              {isLofiPlaying ? 'Lofi: Playing ♫' : 'Lofi: Paused'}
+            </span>
+          </button>
+        )}
       </div>
 
       <div className="flex items-center gap-2.5">

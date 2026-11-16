@@ -18,6 +18,7 @@ export const KNOWN_COMMANDS = [
   'open',
   'theme',
   'resume',
+  'extensions',
   'github',
   'linkedin',
   'leetcode',
@@ -244,6 +245,22 @@ export function executeCommand(rawCommand, uptimeSeconds) {
         window.open(PROFILE.socials.leetcode, '_blank', 'noopener,noreferrer')
       }
       return { output: `Opening LeetCode profile (${PROFILE.socials.leetcode})...` }
+
+    case 'extensions': {
+      const store = useAppStore.getState()
+      if (store.isCopilotOpen) store.toggleCopilot(false)
+      if (!store.isSidebarOpen) store.toggleSidebar()
+      store.setActiveActivityView('extensions')
+      return {
+        output:
+          '🧩 Extensions Marketplace Opened in Sidebar.\n' +
+          'Installed add-ons:\n' +
+          '  • LeetCode Solved HUD (200+ problems analyzed)\n' +
+          '  • GitLens Mini (Inline blame in Home.jsx)\n' +
+          '  • Lofi Focus Mode (Browser-native procedural audio)\n\n' +
+          'Use the sidebar panel to toggle/install extensions.',
+      }
+    }
 
     case 'ls': {
       const fileList = Object.keys(FILES).filter((f) => {

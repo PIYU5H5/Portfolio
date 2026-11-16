@@ -2,6 +2,7 @@ import {
   Files,
   Terminal as TerminalIcon,
   Bot,
+  Blocks,
   PanelLeftClose,
   PanelLeftOpen,
   Settings,
@@ -31,6 +32,17 @@ export const ActivityBar = () => {
       onClick: () => {
         if (isCopilotOpen) toggleCopilot(false)
         setActiveActivityView('explorer')
+      },
+    },
+    {
+      id: 'extensions',
+      label: 'Extensions (Ctrl+Shift+X)',
+      icon: Blocks,
+      isActive: activeActivityView === 'extensions' && isSidebarOpen && !isCopilotOpen,
+      onClick: () => {
+        if (isCopilotOpen) toggleCopilot(false)
+        if (!isSidebarOpen) toggleSidebar()
+        setActiveActivityView('extensions')
       },
     },
     {

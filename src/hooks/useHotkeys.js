@@ -62,6 +62,24 @@ export function useHotkeys() {
         return
       }
 
+      if (isModifier && e.shiftKey && e.key.toLowerCase() === 'x') {
+        e.preventDefault()
+        const store = useAppStore.getState()
+        if (store.isCopilotOpen) store.toggleCopilot(false)
+        if (!store.isSidebarOpen) store.toggleSidebar()
+        store.setActiveActivityView('extensions')
+        return
+      }
+
+      if (isModifier && e.shiftKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault()
+        const store = useAppStore.getState()
+        if (store.isCopilotOpen) store.toggleCopilot(false)
+        if (!store.isSidebarOpen) store.toggleSidebar()
+        store.setActiveActivityView('explorer')
+        return
+      }
+
       if (isModifier && e.key.toLowerCase() === 'b') {
         e.preventDefault()
         toggleSidebar()

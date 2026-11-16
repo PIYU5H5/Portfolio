@@ -10,21 +10,40 @@ import {
   Users,
   Clock,
   Layers,
+  GitBranch,
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, LeetCodeIcon } from '../ui/SocialIcons.jsx'
 import { PROFILE } from '../../data/profile.js'
 import { useAppStore } from '../../store/useAppStore.js'
 import { useTerminalStore } from '../../store/useTerminalStore.js'
+import { useExtensionStore } from '../../store/useExtensionStore.js'
 import { useTypewriter } from '../../hooks/useTypewriter.js'
 import { KeyCap } from '../ui/KeyCap.jsx'
 
 export const HomeFile = () => {
   const { openFile } = useAppStore()
   const { toggleTerminal } = useTerminalStore()
+  const isGitLensEnabled = useExtensionStore((state) => !!state.installed['gitlens-mini'])
   const subtitle = useTypewriter(PROFILE.subtitles, 65, 35, 1800)
 
   const isMac = typeof navigator !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0
   const modKey = isMac ? '⌘' : 'Ctrl'
+
+  const GitLensBlame = ({ commit, date, msg }) => {
+    if (!isGitLensEnabled) return null
+    return (
+      <span
+        className="inline-flex items-center gap-1.5 ml-3 px-2 py-0.5 rounded bg-accent/10 border border-accent/25 text-[10px] sm:text-[11px] font-mono text-text-muted hover:text-accent hover:border-accent transition-all cursor-help shrink-0 shadow-xs"
+        title={`Git Blame: Commit ${commit} • Author: Piyush Jadhav • ${msg} (${date})`}
+      >
+        <GitBranch size={11} className="text-accent shrink-0" />
+        <span className="text-accent/90 font-semibold">{commit}</span>
+        <span className="text-text-muted/60">•</span>
+        <span className="text-text-main/80 truncate font-sans text-[10.5px]">{msg}</span>
+        <span className="text-text-muted/60 hidden md:inline">({date})</span>
+      </span>
+    )
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto py-8 px-4 sm:px-6 space-y-10 font-sans">
@@ -43,7 +62,10 @@ export const HomeFile = () => {
         </div>
 
         <div className="p-5 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto">
-          <div className="text-syntax-comment">// Meet the engineer behind the keyboard</div>
+          <div className="text-syntax-comment flex items-center flex-wrap">
+            <span>// Meet the engineer behind the keyboard</span>
+            <GitLensBlame commit="d7a12e" date="3 days ago" msg="docs: add developer profile config" />
+          </div>
           <div>
             <span className="text-syntax-keyword">const </span>
             <span className="text-syntax-fn">developer </span>
@@ -51,35 +73,50 @@ export const HomeFile = () => {
             <span className="text-text-muted">{'{'}</span>
           </div>
           <div className="pl-6 space-y-0.5">
-            <div>
-              <span className="text-text-main">name</span>
-              <span className="text-text-muted">: </span>
-              <span className="text-syntax-string">"{PROFILE.name}"</span>
-              <span className="text-text-muted">,</span>
+            <div className="flex items-center flex-wrap">
+              <span>
+                <span className="text-text-main">name</span>
+                <span className="text-text-muted">: </span>
+                <span className="text-syntax-string">"{PROFILE.name}"</span>
+                <span className="text-text-muted">,</span>
+              </span>
+              <GitLensBlame commit="b3c87f" date="2 days ago" msg="feat: define developer attributes" />
             </div>
-            <div>
-              <span className="text-text-main">role</span>
-              <span className="text-text-muted">: </span>
-              <span className="text-syntax-string">"{PROFILE.role}"</span>
-              <span className="text-text-muted">,</span>
+            <div className="flex items-center flex-wrap">
+              <span>
+                <span className="text-text-main">role</span>
+                <span className="text-text-muted">: </span>
+                <span className="text-syntax-string">"{PROFILE.role}"</span>
+                <span className="text-text-muted">,</span>
+              </span>
+              <GitLensBlame commit="1f92a0" date="2 days ago" msg="feat: update full-stack engineering role" />
             </div>
-            <div>
-              <span className="text-text-main">based</span>
-              <span className="text-text-muted">: </span>
-              <span className="text-syntax-string">"{PROFILE.based}"</span>
-              <span className="text-text-muted">,</span>
+            <div className="flex items-center flex-wrap">
+              <span>
+                <span className="text-text-main">based</span>
+                <span className="text-text-muted">: </span>
+                <span className="text-syntax-string">"{PROFILE.based}"</span>
+                <span className="text-text-muted">,</span>
+              </span>
+              <GitLensBlame commit="5e81d4" date="2 days ago" msg="fix: Pune, Maharashtra location" />
             </div>
-            <div>
-              <span className="text-text-main">education</span>
-              <span className="text-text-muted">: </span>
-              <span className="text-syntax-string">"3rd Year CSE @ RMD Sinhgad, SPPU"</span>
-              <span className="text-text-muted">,</span>
+            <div className="flex items-center flex-wrap">
+              <span>
+                <span className="text-text-main">education</span>
+                <span className="text-text-muted">: </span>
+                <span className="text-syntax-string">"3rd Year CSE @ RMD Sinhgad, SPPU"</span>
+                <span className="text-text-muted">,</span>
+              </span>
+              <GitLensBlame commit="8c70a9" date="1 day ago" msg="chore: SPPU CSE degree details" />
             </div>
-            <div>
-              <span className="text-text-main">status</span>
-              <span className="text-text-muted">: </span>
-              <span className="text-success font-semibold">"{PROFILE.status}"</span>
-              <span className="text-text-muted">,</span>
+            <div className="flex items-center flex-wrap">
+              <span>
+                <span className="text-text-main">status</span>
+                <span className="text-text-muted">: </span>
+                <span className="text-success font-semibold">"{PROFILE.status}"</span>
+                <span className="text-text-muted">,</span>
+              </span>
+              <GitLensBlame commit="a14f92" date="4 hours ago" msg="feat: actively open for SWE internships" />
             </div>
           </div>
           <div>

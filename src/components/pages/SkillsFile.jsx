@@ -11,9 +11,11 @@ import {
   Layers,
   Plus,
   Sparkles,
+  GitBranch,
 } from 'lucide-react'
 import { SKILLS_DATA, SKILL_CATEGORIES_METADATA } from '../../data/skills.js'
 import { SkillWindow } from './SkillWindow.jsx'
+import { useExtensionStore } from '../../store/useExtensionStore.js'
 
 const FILENAME_MAP = {
   core_stack: 'core-stack.json',
@@ -36,6 +38,7 @@ const ESTIMATED_HEIGHTS = {
 }
 
 export const SkillsFile = () => {
+  const isGitLensEnabled = useExtensionStore((state) => !!state.installed['gitlens-mini'])
   const [viewMode, setViewMode] = useState('chart')
   const [collapsedGroups, setCollapsedGroups] = useState({})
   const [activeWindowId, setActiveWindowId] = useState('core_stack')
@@ -413,7 +416,17 @@ export const SkillsFile = () => {
       {/* ================= VIEW: RAW JSON CODE ================= */}
       {viewMode === 'code' && (
         <div className="rounded-xl border border-border bg-bg-elevated/40 backdrop-blur-sm p-4 sm:p-6 overflow-x-auto shadow-sm">
-          <div className="text-syntax-comment mb-2">// Skills.json</div>
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <div className="text-syntax-comment">// Skills.json</div>
+            {isGitLensEnabled && (
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-accent/10 border border-accent/20 text-[10px] font-mono text-text-muted">
+                <GitBranch size={10} className="text-accent" />
+                <span className="text-accent font-semibold">cc58dfb</span>
+                <span>•</span>
+                <span className="text-text-main/80 font-sans">Piyush Jadhav, 4 days ago • feat: technical proficiencies & categories</span>
+              </span>
+            )}
+          </div>
           <div className="text-text-muted">{'{'}</div>
 
           <div className="pl-4 sm:pl-6 space-y-3">
@@ -433,6 +446,12 @@ export const SkillsFile = () => {
                     </span>
                     <span className="text-syntax-type font-semibold">"{groupKey}"</span>
                     <span className="text-text-muted">: [</span>
+                    {isGitLensEnabled && (
+                      <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-text-muted/60 pl-2">
+                        <GitBranch size={9} className="text-accent" />
+                        <span>Piyush Jadhav • updated {groupKey}</span>
+                      </span>
+                    )}
                     {isCollapsed && (
                       <span className="text-text-muted/60 text-[11px] ml-1">
                         ... {items.length} items ]{isLast ? '' : ','}

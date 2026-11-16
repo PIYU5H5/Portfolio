@@ -82,6 +82,12 @@ export const ReadmeFile = () => {
               </tr>
               <tr className="hover:bg-bg/40 transition-colors">
                 <td className="py-2.5 px-4">
+                  <KeyCap>{modKey}</KeyCap> + <KeyCap>Shift</KeyCap> + <KeyCap>X</KeyCap>
+                </td>
+                <td className="py-2.5 px-4 text-text-muted">Open Extensions Marketplace (Lofi, GitLens, LeetCode)</td>
+              </tr>
+              <tr className="hover:bg-bg/40 transition-colors">
+                <td className="py-2.5 px-4">
                   <KeyCap>{modKey}</KeyCap> + <KeyCap>W</KeyCap>
                 </td>
                 <td className="py-2.5 px-4 text-text-muted">Close focused editor tab</td>

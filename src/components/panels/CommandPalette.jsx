@@ -7,6 +7,7 @@ import {
   Download,
   Mail,
   PanelLeft,
+  Blocks,
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, LeetCodeIcon } from '../ui/SocialIcons.jsx'
 import { useAppStore } from '../../store/useAppStore.js'
@@ -106,6 +107,20 @@ export const CommandPalette = () => {
       icon: <Terminal size={16} className="text-accent" />,
       onSelect: () => {
         toggleTerminal()
+        toggleCommandPalette(false)
+      },
+    },
+    {
+      id: 'action-extensions',
+      title: 'Action: Open Extensions Marketplace (Ctrl+Shift+X)',
+      subtitle: 'Browse & toggle Lofi Mode, GitLens Mini, and LeetCode Tracker',
+      group: 'Actions',
+      icon: <Blocks size={16} className="text-accent" />,
+      onSelect: () => {
+        const store = useAppStore.getState()
+        if (store.isCopilotOpen) store.toggleCopilot(false)
+        if (!store.isSidebarOpen) store.toggleSidebar()
+        store.setActiveActivityView('extensions')
         toggleCommandPalette(false)
       },
     },

@@ -12,6 +12,7 @@ import { useAppStore } from '../../store/useAppStore.js'
 import { FILES } from '../../data/files.js'
 import { SpecialIcon, FileIcon } from '../ui/FileIcon.jsx'
 import { AICopilot } from '../panels/AICopilot.jsx'
+import { ExtensionsPanel } from '../panels/ExtensionsPanel.jsx'
 
 export const Sidebar = () => {
   const {
@@ -23,6 +24,7 @@ export const Sidebar = () => {
     toggleCopilot,
     isSecretsUnlocked,
     isDevLogUnlocked,
+    activeActivityView,
   } = useAppStore()
 
   const [isSrcOpen, setIsSrcOpen] = useState(true)
@@ -82,6 +84,8 @@ export const Sidebar = () => {
     >
       {isCopilotOpen ? (
         <AICopilot />
+      ) : activeActivityView === 'extensions' ? (
+        <ExtensionsPanel />
       ) : (
         <>
           <div className="h-9 px-4 border-b border-border flex items-center justify-between shrink-0">
